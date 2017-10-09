@@ -21,9 +21,11 @@ import com.ae.camunda.dispatcher.api.annotation.CamundaVar;
 import com.ae.camunda.dispatcher.api.annotation.task.*;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
 @CamundaTask(value = "simpleCommand")
+@XmlRootElement
 public class Command {
 
     private String typeField;
