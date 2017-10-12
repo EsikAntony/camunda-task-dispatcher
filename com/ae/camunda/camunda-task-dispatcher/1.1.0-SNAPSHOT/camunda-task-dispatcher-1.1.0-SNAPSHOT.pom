@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2017 Antony Esik
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.ae.camunda</groupId>
+    <version>1.1.0-SNAPSHOT</version>
+    <modules>
+        <module>camunda-task-dispatcher-runtime</module>
+        <module>camunda-task-dispatcher-api</module>
+        <module>camunda-task-dispatcher-receiver-jms</module>
+        <module>camunda-task-dispatcher-transport-jms</module>
+        <module>camunda-task-dispatcher-mapper-json</module>
+        <module>camunda-task-dispatcher-mapper-xml</module>
+        <module>camunda-task-dispatcher-util</module>
+        <module>examples/camunda-task-dispatcher-example-jms-json</module>
+        <module>examples/camunda-task-dispatcher-example-bpm</module>
+        <module>examples/camunda-task-dispatcher-example-model</module>
+        <module>camunda-task-dispatcher-completer-jms</module>
+        <module>camunda-task-dispatcher-processor</module>
+        <module>examples/camunda-task-dispatcher-example-jms-xml</module>
+    </modules>
+
+    <artifactId>camunda-task-dispatcher</artifactId>
+    <packaging>pom</packaging>
+    <name>camunda-task-dispatcher</name>
+
+    <properties>
+        <!-- compiler -->
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- libs -->
+        <version.activemq>5.14.1</version.activemq>
+        <version.jackson>2.8.6</version.jackson>
+        <version.moxy>2.7.0</version.moxy>
+        <version.slf4j>1.7.22</version.slf4j>
+        <version.spring.framework>4.3.8.RELEASE</version.spring.framework>
+        <version.spring-boot>1.4.4.RELEASE</version.spring-boot>
+        <version.commons-io>2.4</version.commons-io>
+        <version.guava>19.0</version.guava>
+        <version.camunda>7.7.0</version.camunda>
+        <version.joda-time>2.9.4</version.joda-time>
+        <version.jms-api>1.1-rev-1</version.jms-api>
+        <version.httpclient>4.5.2</version.httpclient>
+        <version.junit>4.12</version.junit>
+        <version.h2>1.4.195</version.h2>
+        <version.powermock>1.6.5</version.powermock>
+        <version.mockito>1.10.19</version.mockito>
+        <version.dozer>5.5.1</version.dozer>
+        <version.random-beans>3.2.0</version.random-beans>
+        <version.commons-lang3>3.4</version.commons-lang3>
+        <version.hibernate>5.3.5.Final</version.hibernate>
+        <version.el>3.0.1-b08</version.el>
+        <!-- plugins -->
+        <version.jar-plugin>2.6</version.jar-plugin>
+        <version.maven-dependency-plugin>2.10</version.maven-dependency-plugin>
+        <isCopyToTarget>true</isCopyToTarget>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${version.slf4j}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <version>${version.spring-boot}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
+            <version>${version.spring.framework}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.jms</groupId>
+            <artifactId>jms-api</artifactId>
+            <version>${version.jms-api}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${version.jackson}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${version.commons-io}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${version.guava}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-client</artifactId>
+            <version>${version.activemq}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>${version.httpclient}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.camunda.bpm</groupId>
+            <artifactId>camunda-engine</artifactId>
+            <version>${version.camunda}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.camunda.bpm</groupId>
+            <artifactId>camunda-engine-rest-core</artifactId>
+            <version>${version.camunda}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${version.jackson}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${version.jackson}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${version.commons-lang3}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${version.junit}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${version.h2}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-api-mockito</artifactId>
+            <version>${version.powermock}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-module-junit4</artifactId>
+            <version>${version.powermock}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>${version.mockito}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.dozer</groupId>
+            <artifactId>dozer</artifactId>
+            <version>${version.dozer}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.github.benas</groupId>
+            <artifactId>random-beans</artifactId>
+            <version>${version.random-beans}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${version.jar-plugin}</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/logback-test.xml</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
