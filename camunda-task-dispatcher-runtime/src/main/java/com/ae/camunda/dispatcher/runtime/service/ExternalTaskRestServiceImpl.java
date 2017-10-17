@@ -24,10 +24,13 @@ import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.camunda.bpm.engine.rest.dto.externaltask.CompleteExternalTaskDto;
 import org.camunda.bpm.engine.rest.dto.externaltask.ExternalTaskFailureDto;
@@ -35,6 +38,7 @@ import org.camunda.bpm.engine.rest.dto.externaltask.FetchExternalTasksDto;
 import org.camunda.bpm.engine.rest.dto.externaltask.LockedExternalTaskDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
@@ -53,6 +57,12 @@ public class ExternalTaskRestServiceImpl implements ExternalTaskRestService {
     @Value("${camunda.dispatcher.runtime.engine-url}")
     private String engineUrl;
 
+    @Value("${camunda.dispatcher.runtime.engine.user:}")
+    private String camundaUser;
+
+    @Value("${camunda.dispatcher.runtime.engine.pass:}")
+    private String camundaPass;
+
     private ObjectMapper objectMapper;
 
     private HttpClient httpClient;
@@ -60,7 +70,13 @@ public class ExternalTaskRestServiceImpl implements ExternalTaskRestService {
     @PostConstruct
     public void init() {
         objectMapper = new ObjectMapper();
-        httpClient = HttpClientBuilder.create().build();
+        final HttpClientBuilder clientBuilder = HttpClientBuilder.create();
+        if (StringUtils.hasText(camundaUser)) {
+            final BasicCredentialsProvider provider = new BasicCredentialsProvider();
+            provider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(camundaUser, camundaPass));
+            clientBuilder.setDefaultCredentialsProvider(provider);
+        }
+        httpClient = clientBuilder.build();
     }
 
     @Override
