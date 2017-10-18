@@ -50,14 +50,18 @@ public class JmsExternalTaskSender {
     private JmsTemplate jmsTemplate;
 
     public void send(Object task, Status status) {
-        send(task, queueIn, status, null);
+        send(task, queueIn, status, null, null);
     }
 
     public void send(Object task, Status status, String reason) {
-        send(task, queueIn, status, reason);
+        send(task, queueIn, status, reason, null);
     }
 
-    private void send(Object task, String queue, Status status, String reason) {
+    public void send(Object task, Status status, String reason, String detail) {
+        send(task, queueIn, status, reason, detail);
+    }
+
+    private void send(Object task, String queue, Status status, String reason, String detail) {
         jmsTemplate.send(queue, (Session session) -> {
             TextMessage message = session.createTextMessage();
             message.setText(taskMapper.map(task));
@@ -72,6 +76,10 @@ public class JmsExternalTaskSender {
 
             if (!Strings.isNullOrEmpty(reason)) {
                 setStringProperty(message, Headers.REASON, reason);
+            }
+
+            if (!Strings.isNullOrEmpty(detail)) {
+                setStringProperty(message, Headers.DETAIL, detail);
             }
 
             return message;

@@ -41,12 +41,17 @@ public class JmsExternalTaskCompleter implements ExternalTaskCompleter {
     }
 
     @Override
-    public void fail(Object task, String reason) {
-        taskSender.send(task, Status.FAIL, reason);
+    public void fail(final Object task, final String reason, final String detail) {
+        taskSender.send(task, Status.FAIL, reason, detail);
     }
 
     @Override
-    public void fail(Object task) {
+    public void fail(final Object task, final String reason) {
+        fail(task, reason, null);
+    }
+
+    @Override
+    public void fail(final Object task) {
         List<String> errors = new LinkedList<>();
         ReflectionUtils.doWithFields(task.getClass(), field -> {
             ErrorMessage errorMessage = field.getAnnotation(ErrorMessage.class);

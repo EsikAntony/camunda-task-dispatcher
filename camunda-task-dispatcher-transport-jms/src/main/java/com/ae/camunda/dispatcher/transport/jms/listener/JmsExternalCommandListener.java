@@ -21,7 +21,6 @@ import com.ae.camunda.dispatcher.api.jms.Headers;
 import com.ae.camunda.dispatcher.api.manager.ExternalTaskManager;
 import com.ae.camunda.dispatcher.api.mapper.TaskMapper;
 import com.ae.camunda.dispatcher.api.service.ExternalTaskRestService;
-import com.ae.camunda.dispatcher.exception.CamundaRestException;
 import org.apache.commons.lang3.tuple.Pair;
 import org.camunda.bpm.engine.rest.dto.externaltask.CompleteExternalTaskDto;
 import org.camunda.bpm.engine.rest.dto.externaltask.ExternalTaskFailureDto;
@@ -31,9 +30,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
-import javax.jms.*;
-import java.util.NoSuchElementException;
+import javax.jms.Message;
+import javax.jms.MessageListener;
+import javax.jms.Session;
+import javax.jms.TextMessage;
 
 @Component
 public class JmsExternalCommandListener implements MessageListener {
@@ -75,19 +77,29 @@ public class JmsExternalCommandListener implements MessageListener {
             LOG.debug("Received message for task: {}", taskName);
             Object command = taskMapper.map(textMessage.getText(), taskManager.getCommandClass(taskName));
 
-            String reason = textMessage.getStringProperty(Headers.REASON);
-            Status status = Status.valueOf(textMessage.getStringProperty(Headers.STATUS));
-            LOG.debug("Received message in status [{}] with reason [{}]", status, reason);
+            final String reason = textMessage.getStringProperty(Headers.REASON);
+            final String detail = textMessage.getStringProperty(Headers.DETAIL);
+            final Status status = Status.valueOf(textMessage.getStringProperty(Headers.STATUS));
+            LOG.debug("Received message in status [{}] with reason [{}] with detail [{}]", status, reason, detail);
 
             switch (status) {
                 case COMPLETE:
-                    Pair<String, CompleteExternalTaskDto> comleteTaskPair = taskManager.toCompleteTask(taskName, command);
-                    taskService.complete(comleteTaskPair.getKey(), comleteTaskPair.getValue());
+                    Pair<String, CompleteExternalTaskDto> completeTaskPair = taskManager.toCompleteTask(taskName, command);
+                    taskService.complete(completeTaskPair.getKey(), completeTaskPair.getValue());
                     break;
 
                 case FAIL:
                     Pair<String, ExternalTaskFailureDto> failTaskPair = taskManager.toFailTask(taskName, command);
-                    taskService.fail(failTaskPair.getKey(), failTaskPair.getValue());
+
+                    final ExternalTaskFailureDto failureDto = failTaskPair.getValue();
+                    if (!StringUtils.hasText(failureDto.getErrorMessage())) {
+                        failureDto.setErrorMessage(reason);
+                    }
+                    if (!StringUtils.hasText(failureDto.getErrorDetails())) {
+                        failureDto.setErrorDetails(detail);
+                    }
+
+                    taskService.fail(failTaskPair.getKey(), failureDto);
                     break;
             }
         } catch (Exception e) {

@@ -68,7 +68,8 @@ public class JmsExternalTaskCompleterTest {
 
         ArgumentCaptor<Status> statusCaptor = ArgumentCaptor.forClass(Status.class);
         ArgumentCaptor<String> reasonCaptor = ArgumentCaptor.forClass(String.class);
-        Mockito.verify(sender, Mockito.atLeastOnce()).send(Mockito.any(), statusCaptor.capture(), reasonCaptor.capture());
+        ArgumentCaptor<String> detailCaptor = ArgumentCaptor.forClass(String.class);
+        Mockito.verify(sender, Mockito.atLeastOnce()).send(Mockito.any(), statusCaptor.capture(), reasonCaptor.capture(), detailCaptor.capture());
 
         Status status = statusCaptor.getAllValues().get(0);
         Assert.assertNotNull(status);
@@ -76,16 +77,21 @@ public class JmsExternalTaskCompleterTest {
 
         String reason = reasonCaptor.getAllValues().get(0);
         Assert.assertNull(reason);
+
+        String detail = detailCaptor.getAllValues().get(0);
+        Assert.assertNull(detail);
     }
 
     @Test
     public void testFailWithReason() {
-        String error = "some error";
-        completer.fail(null, error);
+        final String error = "some error";
+        final String errorDetail = "some detail";
+        completer.fail(null, error, errorDetail);
 
         ArgumentCaptor<Status> statusCaptor = ArgumentCaptor.forClass(Status.class);
         ArgumentCaptor<String> reasonCaptor = ArgumentCaptor.forClass(String.class);
-        Mockito.verify(sender, Mockito.atLeastOnce()).send(Mockito.any(), statusCaptor.capture(), reasonCaptor.capture());
+        ArgumentCaptor<String> detailCaptor = ArgumentCaptor.forClass(String.class);
+        Mockito.verify(sender, Mockito.atLeastOnce()).send(Mockito.any(), statusCaptor.capture(), reasonCaptor.capture(), detailCaptor.capture());
 
         Status status = statusCaptor.getAllValues().get(0);
         Assert.assertNotNull(status);
@@ -94,6 +100,10 @@ public class JmsExternalTaskCompleterTest {
         String reason = reasonCaptor.getAllValues().get(0);
         Assert.assertNotNull(reason);
         Assert.assertEquals(error, reason);
+
+        String detail = detailCaptor.getAllValues().get(0);
+        Assert.assertNotNull(detail);
+        Assert.assertEquals(errorDetail, detail);
     }
 
     @Test
@@ -103,7 +113,7 @@ public class JmsExternalTaskCompleterTest {
 
         ArgumentCaptor<Status> statusCaptor = ArgumentCaptor.forClass(Status.class);
         ArgumentCaptor<String> reasonCaptor = ArgumentCaptor.forClass(String.class);
-        Mockito.verify(sender, Mockito.atLeastOnce()).send(Mockito.any(), statusCaptor.capture(), reasonCaptor.capture());
+        Mockito.verify(sender, Mockito.atLeastOnce()).send(Mockito.any(), statusCaptor.capture(), reasonCaptor.capture(), Mockito.any());
 
         Status status = statusCaptor.getAllValues().get(0);
         Assert.assertNotNull(status);

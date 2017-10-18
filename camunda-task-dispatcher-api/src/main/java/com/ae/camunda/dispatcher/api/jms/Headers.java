@@ -22,4 +22,6 @@ public interface Headers {
     String STATUS = PREFIX + "Status";
 
     String REASON = PREFIX + "Reason";
+
+    String DETAIL = PREFIX + "ReasonDetail";
 }

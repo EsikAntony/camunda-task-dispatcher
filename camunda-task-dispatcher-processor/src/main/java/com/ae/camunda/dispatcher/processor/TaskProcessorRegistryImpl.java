@@ -54,8 +54,8 @@ public class TaskProcessorRegistryImpl implements TaskProcessorRegistry {
         ImmutableListMultimap.Builder<String, Pair<Class<?>, TaskProcessor>> builder = ImmutableListMultimap.builder();
         taskProcessors.forEach(processor ->
                 Stream.of(processor.getClass().getGenericInterfaces())
-                        .filter(iface -> iface instanceof ParameterizedType)
-                        .map(iface -> (ParameterizedType) iface)
+                        .filter(ParameterizedType.class::isInstance)
+                        .map(ParameterizedType.class::cast)
                         .filter(iface -> iface.getRawType() != null && TaskProcessor.class.getName().equals(iface.getRawType().getTypeName()))
                         .map(iface -> iface.getActualTypeArguments()[0].getTypeName())
                         .findFirst()

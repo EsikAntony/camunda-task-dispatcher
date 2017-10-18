@@ -18,6 +18,7 @@ package com.ae.camunda.dispatcher.api.completer;
 
 public interface ExternalTaskCompleter {
     void complete(Object task);
+    void fail(Object task, String reason, String detail);
     void fail(Object task, String reason);
     void fail(Object task);
 }

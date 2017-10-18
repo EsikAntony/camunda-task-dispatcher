@@ -24,6 +24,8 @@ import com.ae.camunda.dispatcher.exception.CamundaRestException;
 import com.ae.camunda.dispatcher.transport.jms.listener.JmsExternalCommandListener;
 import com.ae.camunda.dispatcher.util.JavaUtils;
 import org.apache.commons.lang3.tuple.Pair;
+import org.camunda.bpm.engine.rest.dto.externaltask.CompleteExternalTaskDto;
+import org.camunda.bpm.engine.rest.dto.externaltask.ExternalTaskFailureDto;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -117,8 +119,8 @@ public class JmsExternalCommandListenerTest {
 
     private void testOnMessage(String status, int completeTimes, int failtimes) throws JMSException, CamundaRestException {
         Mockito.when(textMessage.getStringProperty(Mockito.anyString())).thenReturn(status);
-        Mockito.when(taskManager.toCompleteTask(Mockito.anyString(), Mockito.anyObject())).thenReturn(Pair.of(null, null));
-        Mockito.when(taskManager.toFailTask(Mockito.anyString(), Mockito.anyObject())).thenReturn(Pair.of(null, null));
+        Mockito.when(taskManager.toCompleteTask(Mockito.anyString(), Mockito.anyObject())).thenReturn(Pair.of(null, new CompleteExternalTaskDto()));
+        Mockito.when(taskManager.toFailTask(Mockito.anyString(), Mockito.anyObject())).thenReturn(Pair.of(null, new ExternalTaskFailureDto()));
 
         listener.onMessage(textMessage);
 
