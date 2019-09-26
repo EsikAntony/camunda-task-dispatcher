@@ -89,6 +89,9 @@ public class Command {
     @RetryTimeout
     private long retryTimeout;
 
+    @BusinessKey
+    private String businessKey;
+
     public String getStringVar() {
         return stringVar;
     }
@@ -247,5 +250,13 @@ public class Command {
 
     public void setErrorDetails(String errorDetails) {
         this.errorDetails = errorDetails;
+    }
+
+    private String getBusinessKey() {
+        return businessKey;
+    }
+
+    private void setBusinessKey(final String businessKey) {
+        this.businessKey = businessKey;
     }
 }

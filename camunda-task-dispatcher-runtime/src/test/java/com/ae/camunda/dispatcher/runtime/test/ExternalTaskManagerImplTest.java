@@ -66,14 +66,14 @@ public class ExternalTaskManagerImplTest {
     public void testInit() {
         manager.init();
 
-        Assert.assertEquals(17, manager.getExternalTaskFieldAnnotations().size());
+        Assert.assertEquals(18, manager.getExternalTaskFieldAnnotations().size());
         Assert.assertEquals(1, manager.getExternalTaskDefinitions().size());
 
         {
             ExternalTask<?> task = manager.getExternalTaskDefinitions().get(Command.TASK_NAME);
             Assert.assertNotNull(task);
             Assert.assertEquals(Command.TASK_NAME, task.getName());
-            Assert.assertEquals(19, task.getFields().size());
+            Assert.assertEquals(20, task.getFields().size());
 
             testFields((key) -> Assert.assertNotNull(task.getFields().get(key)));
         }
@@ -100,7 +100,7 @@ public class ExternalTaskManagerImplTest {
         Assert.assertEquals(Command.TASK_NAME, topic.getTopicName());
 
         Assert.assertNotNull(topic.getVariables());
-        Assert.assertEquals(19, topic.getVariables().size());
+        Assert.assertEquals(20, topic.getVariables().size());
 
         testFields((key) -> Assert.assertTrue(topic.getVariables().contains(key)));
     }
