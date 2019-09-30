@@ -54,10 +54,10 @@ public class ExternalTaskProcessor implements Runnable {
     @Autowired
     private ExternalTaskSender taskSender;
 
-    @Value("${camunda.dispatcher.runtimeexternal-task.batch:100}")
+    @Value("${camunda.dispatcher.runtime.external-task.batch:100}")
     private int taskBatchSize = 100;
 
-    @Value("${camunda.dispatcher.runtime.external-task.workerId:externalTaskProcessor}")
+    @Value("${camunda.dispatcher.runtime.external-task.worker-id:externalTaskProcessor}")
     private String workerId = "externalTaskProcessor";
 
     @Value("${camunda.dispatcher.runtime.external-task.concurrent-workers:2}")
@@ -66,13 +66,13 @@ public class ExternalTaskProcessor implements Runnable {
     @Value("${camunda.dispatcher.runtime.external-task.empty-wait:5000}")
     private long emptyWait = 5000;
 
-    @Value("${camunda.dispatcher.runtime.externalt-task.lock-timeout:86400000}")
+    @Value("${camunda.dispatcher.runtime.external-task.lock-timeout:86400000}")
     private long lockTimeout = 86400000;
 
-    @Value("${camunda.dispatcher.runtime.externalt-task.consume-wait:5000}")
+    @Value("${camunda.dispatcher.runtime.external-task.consume-wait:5000}")
     private long consumeWait = 5000;
 
-    @Value("${camunda.dispatcher.runtime.externalt-task.consume-retry:10}")
+    @Value("${camunda.dispatcher.runtime.external-task.consume-retry:10}")
     private int consumeRetry = 10;
 
     private ExecutorService threadPool;

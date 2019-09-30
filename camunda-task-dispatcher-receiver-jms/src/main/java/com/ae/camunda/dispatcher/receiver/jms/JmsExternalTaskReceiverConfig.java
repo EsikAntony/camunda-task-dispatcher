@@ -16,6 +16,7 @@
 
 package com.ae.camunda.dispatcher.receiver.jms;
 
+import com.google.common.base.Strings;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,17 +35,23 @@ public class JmsExternalTaskReceiverConfig {
     @Value("${camunda.dispatcher.jms.session.size:5}")
     private int sessionCacheSize;
 
-    @Value("${camunda.dispatcher.jms.concurrentConsumers:1}")
+    @Value("${camunda.dispatcher.jms.concurrent-consumers:1}")
     private int concurrentConsumers;
 
-    @Value("${camunda.dispatcher.jms.maxMessagesPerTask:1}")
+    @Value("${camunda.dispatcher.jms.max-messages-per-task:1}")
     private int maxMessagesPerTask;
 
-    @Value("${camunda.dispatcher.jms.receiveTimeout:5000}")
+    @Value("${camunda.dispatcher.jms.receive-timeout:5000}")
     private long receiveTimeout;
 
     @Value("${camunda.dispatcher.jms.activemq.broker-url:tcp://localhost:61616}")
     private String brokerUrl;
+
+    @Value("${camunda.dispatcher.jms.activemq.username:admin}")
+    private String brokerUser;
+
+    @Value("${camunda.dispatcher.jms.activemq.password:admin}")
+    private String brokerPassword;
 
     @Bean
     public ActiveMQQueue taskQueue() {
@@ -54,6 +61,11 @@ public class JmsExternalTaskReceiverConfig {
     @Bean
     public ConnectionFactory receiverConnectionFactory() {
         ActiveMQConnectionFactory activeMQConnectionFactory = new ActiveMQConnectionFactory(brokerUrl);
+
+        if (!Strings.isNullOrEmpty(brokerUser)) {
+            activeMQConnectionFactory.setUserName(brokerUser);
+            activeMQConnectionFactory.setPassword(brokerPassword);
+        }
 
         CachingConnectionFactory bean = new CachingConnectionFactory(activeMQConnectionFactory);
         bean.setSessionCacheSize(sessionCacheSize);

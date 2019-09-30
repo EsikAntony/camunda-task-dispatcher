@@ -16,6 +16,7 @@
 
 package com.ae.camunda.dispatcher.completer.jms;
 
+import com.google.common.base.Strings;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,9 +36,19 @@ public class JmsExternalTaskCompleterConfig {
     @Value("${camunda.dispatcher.jms.activemq.broker-url:tcp://localhost:61616}")
     private String brokerUrl;
 
+    @Value("${camunda.dispatcher.jms.activemq.username:admin}")
+    private String brokerUser;
+
+    @Value("${camunda.dispatcher.jms.activemq.password:admin}")
+    private String brokerPassword;
+
     @Bean
     public ConnectionFactory connectionFactory() {
         ActiveMQConnectionFactory activeMQConnectionFactory = new ActiveMQConnectionFactory(brokerUrl);
+        if (!Strings.isNullOrEmpty(brokerUser)) {
+            activeMQConnectionFactory.setUserName(brokerUser);
+            activeMQConnectionFactory.setPassword(brokerPassword);
+        }
 
         CachingConnectionFactory bean = new CachingConnectionFactory(activeMQConnectionFactory);
         bean.setSessionCacheSize(sessionCacheSize);

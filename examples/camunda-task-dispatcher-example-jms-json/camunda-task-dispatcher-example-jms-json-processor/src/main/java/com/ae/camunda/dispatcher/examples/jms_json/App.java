@@ -20,7 +20,6 @@ import com.ae.camunda.dispatcher.api.annotation.EnableCamundaDispatcher;
 import com.ae.camunda.dispatcher.receiver.jms.JmsExternalTaskReceiverConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 import org.springframework.jms.annotation.EnableJms;
 
