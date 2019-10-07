@@ -30,6 +30,7 @@ import java.util.List;
 
 public interface ExternalTaskManager {
     List<FetchExternalTasksDto.FetchExternalTaskTopicDto> getExternalTaskTopics(long lockTimeout);
+
     Object toCommand(LockedExternalTaskDto task);
 
     static String toTaskName(Class<?> aClass) {
@@ -43,9 +44,9 @@ public interface ExternalTaskManager {
 
     Class<?> getCommandClass(String taskName);
 
-    Pair<String,CompleteExternalTaskDto> toCompleteTask(String taskName, Object command);
+    Pair<String, CompleteExternalTaskDto> toCompleteTask(String taskName, Object command);
 
-    Pair<String,ExternalTaskFailureDto> toFailTask(String taskName, Object command);
+    Pair<String, ExternalTaskFailureDto> toFailTask(String taskName, Object command);
 
     static String getVarName(Field field, CamundaVar camundaVar) {
         return Strings.isNullOrEmpty(camundaVar.value()) ? field.getName() : camundaVar.value();

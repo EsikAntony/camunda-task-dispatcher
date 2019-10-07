@@ -54,13 +54,13 @@ public class JmsExternalCommandListener implements MessageListener {
     @Autowired
     private JmsTemplate jmsTemplate;
 
-    @Value("${camunda.dispatcher.jms.type-header}")
+    @Value("${camunda.dispatcher.jms.external-task.type-header}")
     private String typeHeader;
 
-    @Value("${camunda.dispatcher.jms.error-header}")
+    @Value("${camunda.dispatcher.jms.external-task.error-header}")
     private String errorHeader;
 
-    @Value("${camunda.dispatcher.jms.dl-queue:dispatcherDLQ}")
+    @Value("${camunda.dispatcher.jms.external-task.dl-queue:dispatcherDLQ}")
     private String dlq;
 
     public void onMessage(Message message) {

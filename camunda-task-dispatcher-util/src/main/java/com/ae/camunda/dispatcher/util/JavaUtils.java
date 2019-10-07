@@ -16,8 +16,15 @@
 
 package com.ae.camunda.dispatcher.util;
 
+import com.google.common.reflect.ClassPath;
+import org.apache.commons.lang3.StringUtils;
+
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -72,21 +79,52 @@ public abstract class JavaUtils {
     }
 
     public static void setFieldWithoutCheckedException(Field field, Object target, Object value) {
-        callWithoutCheckedException(() ->  {
+        callWithoutCheckedException(() -> {
             setFieldUnsafe(field, target, value);
             return null;
         });
     }
 
     public static void setFieldWithoutCheckedException(Field field, Object target, Callable supplier) {
-        callWithoutCheckedException(() ->  {
+        callWithoutCheckedException(() -> {
             setFieldUnsafe(field, target, supplier.call());
             return null;
         });
     }
 
     public static Object getFieldWithoutCheckedException(Field field, Object target) {
-        return callWithoutCheckedException(() ->  getFieldUnsafe(field, target));
+        return callWithoutCheckedException(() -> getFieldUnsafe(field, target));
+    }
+
+    public static void forEachClass(List<String> packages, Consumer<Class<?>> classConsumer) {
+        packages.forEach(packageName ->
+                callWithoutCheckedException(() -> {
+                    ClassPath.from(JavaUtils.class.getClassLoader())
+                            .getTopLevelClassesRecursive(packageName)
+                            .stream()
+                            .map(ClassPath.ClassInfo::load)
+                            .forEach(classConsumer);
+
+                    return null;
+                })
+        );
+    }
+
+    public static Map<String, Class<? extends Annotation>> loadAnnotations(String packageName) {
+        Map<String, Class<? extends Annotation>> map = new HashMap<>();
+        callWithoutCheckedException(() -> {
+            ClassPath.from(JavaUtils.class.getClassLoader())
+                    .getTopLevelClassesRecursive(packageName)
+                    .stream()
+                    .map(ClassPath.ClassInfo::load)
+                    .filter(Class::isAnnotation)
+                    // workaround compile issue with Collectors.toMap
+                    .forEach(aClass -> map.put(StringUtils.uncapitalize(aClass.getSimpleName()), (Class<? extends Annotation>) aClass));
+
+            return null;
+        });
+
+        return map;
     }
 
     private static Object getFieldUnsafe(Field field, Object target) throws IllegalAccessException {

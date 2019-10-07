@@ -40,10 +40,10 @@ public class JmsExternalTaskSender {
     @Autowired
     private TaskMapper taskMapper;
 
-    @Value("${camunda.dispatcher.jms.in-queue:dispatcherIn}")
+    @Value("${camunda.dispatcher.jms.external-task.in-queue:dispatcherIn}")
     private String queueIn;
 
-    @Value("${camunda.dispatcher.jms.type-header}")
+    @Value("${camunda.dispatcher.jms.external-task.type-header}")
     private String header;
 
     @Autowired

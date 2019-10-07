@@ -29,7 +29,7 @@ import javax.jms.ConnectionFactory;
 
 public class JmsExternalTaskReceiverConfig {
 
-    @Value("${camunda.dispatcher.jms.out-queue:dispatcherOut}")
+    @Value("${camunda.dispatcher.jms.external-task.out-queue:dispatcherOut}")
     private String outTaskQueueName;
 
     @Value("${camunda.dispatcher.jms.session.size:5}")

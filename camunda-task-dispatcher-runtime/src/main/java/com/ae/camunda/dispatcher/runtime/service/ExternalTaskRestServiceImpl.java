@@ -88,9 +88,9 @@ public class ExternalTaskRestServiceImpl implements ExternalTaskRestService {
             post.setEntity(entity);
             post.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
             return executeAbstractMethod(post, objectMapper.getTypeFactory().constructCollectionType(LinkedList.class, LockedExternalTaskDto.class));
-        } catch (CamundaRestException cre){
+        } catch (CamundaRestException cre) {
             throw cre;
-        } catch (Exception ex){
+        } catch (Exception ex) {
             throw new CamundaRestException(ex);
         }
     }
@@ -114,6 +114,10 @@ public class ExternalTaskRestServiceImpl implements ExternalTaskRestService {
         StringWriter stringWriter = new StringWriter();
         int statusCode = response.getStatusLine().getStatusCode();
         if (statusCode != HttpStatus.SC_OK && statusCode != HttpStatus.SC_NO_CONTENT) {
+            if (response.getEntity() != null
+                    && response.getEntity().getContent() != null) {
+                IOUtils.copy(response.getEntity().getContent(), stringWriter);
+            }
             throw CamundaRestException.fromCodeAndResponse(statusCode, stringWriter.toString());
         }
         return response.getEntity().getContent();
@@ -132,7 +136,7 @@ public class ExternalTaskRestServiceImpl implements ExternalTaskRestService {
         }
     }
 
-    private void executeAbstractMethod(HttpUriRequest request) throws CamundaRestException,IOException{
+    private void executeAbstractMethod(HttpUriRequest request) throws CamundaRestException, IOException {
         HttpResponse response = httpClient.execute(request);
         StringWriter stringWriter = new StringWriter();
         int statusCode = response.getStatusLine().getStatusCode();
@@ -141,12 +145,16 @@ public class ExternalTaskRestServiceImpl implements ExternalTaskRestService {
             IOUtils.copy(response.getEntity().getContent(), stringWriter);
         }
         if (statusCode != HttpStatus.SC_OK && statusCode != HttpStatus.SC_NO_CONTENT) {
-            throw CamundaRestException.fromCodeAndResponse(statusCode,stringWriter.toString());
+            throw CamundaRestException.fromCodeAndResponse(statusCode, stringWriter.toString());
         }
     }
 
     private <T> T unmarshallToObject(InputStream json, JavaType type) throws IOException {
-        return objectMapper.readValue(json, type);
+        try {
+            return objectMapper.readValue(json, type);
+        } finally {
+            json.close();
+        }
     }
 
     private String makeTaskUrl(String taskId, String action) {

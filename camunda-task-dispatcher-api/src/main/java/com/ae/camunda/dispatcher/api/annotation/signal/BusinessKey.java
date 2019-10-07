@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-package com.ae.camunda.dispatcher.api.annotation.task;
+package com.ae.camunda.dispatcher.api.annotation.signal;
+
+import com.ae.camunda.dispatcher.api.annotation.CamundaVar;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -23,5 +25,6 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
+@CamundaVar("businessKey")
 public @interface BusinessKey {
 }

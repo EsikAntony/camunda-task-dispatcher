@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Antony Esik
+ * Copyright (c) 2019 Antony Esik
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-package com.ae.camunda.dispatcher.api.annotation.task;
+package com.ae.camunda.dispatcher.api.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target(ElementType.FIELD)
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface BusinessKey {
+public @interface CamundaSignal {
+    String value() default "";
 }

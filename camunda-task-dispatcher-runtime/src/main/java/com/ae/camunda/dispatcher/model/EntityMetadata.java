@@ -20,7 +20,7 @@ import java.lang.reflect.Field;
 import java.util.Collections;
 import java.util.Map;
 
-public class ExternalTask<T> {
+public class EntityMetadata<T> {
 
     private String name;
 
@@ -28,7 +28,7 @@ public class ExternalTask<T> {
 
     private Map<String, Field> fields;
 
-    public ExternalTask(String name, Class<T> clazz, Map<String, Field> fields) {
+    public EntityMetadata(String name, Class<T> clazz, Map<String, Field> fields) {
         this.name = name;
         this.clazz = clazz;
         this.fields = fields;

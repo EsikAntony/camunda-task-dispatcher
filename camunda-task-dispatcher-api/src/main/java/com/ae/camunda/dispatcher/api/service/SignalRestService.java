@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Antony Esik
+ * Copyright (c) 2019 Antony Esik
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,11 @@
  * limitations under the License.
  */
 
-package com.ae.camunda.dispatcher.api.annotation.task;
+package com.ae.camunda.dispatcher.api.service;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import com.ae.camunda.dispatcher.exception.CamundaRestException;
+import org.camunda.bpm.engine.rest.dto.SignalDto;
 
-@Target(ElementType.FIELD)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface BusinessKey {
+public interface SignalRestService {
+    void fire(String businessKey, SignalDto signal) throws CamundaRestException;
 }

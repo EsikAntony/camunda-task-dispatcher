@@ -24,7 +24,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
@@ -34,7 +33,7 @@ public class JmsExternalTaskListener implements MessageListener {
 
     private static final Logger LOG = LoggerFactory.getLogger(JmsExternalTaskListener.class);
 
-    @Value("${camunda.dispatcher.jms.type-header}")
+    @Value("${camunda.dispatcher.jms.external-task.type-header}")
     private String header;
 
     @Autowired

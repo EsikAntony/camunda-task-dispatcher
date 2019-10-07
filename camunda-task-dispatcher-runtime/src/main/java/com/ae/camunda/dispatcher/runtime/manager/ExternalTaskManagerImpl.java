@@ -17,22 +17,19 @@
 package com.ae.camunda.dispatcher.runtime.manager;
 
 import com.ae.camunda.dispatcher.api.annotation.CamundaTask;
-import com.ae.camunda.dispatcher.api.annotation.CamundaVar;
 import com.ae.camunda.dispatcher.api.annotation.task.Id;
+import com.ae.camunda.dispatcher.api.annotation.task.WorkerId;
 import com.ae.camunda.dispatcher.api.manager.ExternalTaskManager;
-import com.ae.camunda.dispatcher.model.ExternalTask;
-import com.ae.camunda.dispatcher.runtime.processor.ExternalTaskProcessor;
+import com.ae.camunda.dispatcher.model.EntityMetadata;
+import com.ae.camunda.dispatcher.runtime.manager.util.FieldUtils;
 import com.ae.camunda.dispatcher.util.JavaUtils;
 import com.google.common.base.Strings;
-import com.google.common.reflect.ClassPath;
 import org.apache.commons.lang3.tuple.Pair;
 import org.camunda.bpm.engine.rest.dto.VariableValueDto;
 import org.camunda.bpm.engine.rest.dto.externaltask.CompleteExternalTaskDto;
 import org.camunda.bpm.engine.rest.dto.externaltask.ExternalTaskFailureDto;
 import org.camunda.bpm.engine.rest.dto.externaltask.FetchExternalTasksDto;
 import org.camunda.bpm.engine.rest.dto.externaltask.LockedExternalTaskDto;
-import org.camunda.bpm.engine.variable.Variables;
-import org.camunda.bpm.engine.variable.value.TypedValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -54,43 +51,33 @@ public class ExternalTaskManagerImpl implements ExternalTaskManager {
     @Value("#{'${camunda.dispatcher.command.package-name}'.split(',')}")
     private List<String> packages;
 
-    private final Map<String, ExternalTask<?>> externalTaskDefinitions = new HashMap<>();
+    private final Map<String, EntityMetadata<?>> externalTaskDefinitions = new HashMap<>();
 
-    private final Map<Class<? extends Annotation>, String> externalTaskFieldAnnotations = new HashMap<>();
+    private Map<String, Class<? extends Annotation>> externalTaskFieldAnnotations;
 
     @PostConstruct
     public void init() {
+        this.externalTaskFieldAnnotations = JavaUtils.loadAnnotations(Id.class.getPackage().getName());
+
         LOG.info("Analyze packages: {}", packages);
-        packages.forEach(packageName ->
-                JavaUtils.callWithoutCheckedException(() -> {
-                    ClassPath.from(ExternalTaskProcessor.class.getClassLoader())
-                            .getTopLevelClassesRecursive(packageName)
-                            .forEach(classInfo -> {
-                                LOG.trace("Analyze class: {}", classInfo.getName());
-                                Class<?> aClass = classInfo.load();
+        JavaUtils.forEachClass(packages, aClass -> {
+            LOG.trace("Analyze class: {}", aClass.getName());
 
-                                CamundaTask annotation = aClass.getAnnotation(CamundaTask.class);
-                                if (annotation != null) {
-                                    boolean haveIdField[] = new boolean[] {false};
-                                    ReflectionUtils.doWithFields(aClass, field -> haveIdField[0] = true, f -> f.getAnnotation(Id.class) != null);
+            CamundaTask annotation = aClass.getAnnotation(CamundaTask.class);
+            if (annotation != null) {
+                if(!anyFieldContainsAnnotation(aClass, Id.class)
+                    || !anyFieldContainsAnnotation(aClass, WorkerId.class)) {
+                    return;
+                }
 
-                                    if (!haveIdField[0]) {
-                                        LOG.warn("Class [{}] annotated with @CamundaTask, but does not have field with @Id annotation", aClass.getName());
-                                        return;
-                                    }
+                String taskName = Strings.isNullOrEmpty(annotation.value()) ? aClass.getName() : annotation.value();
 
-                                    String taskName = Strings.isNullOrEmpty(annotation.value()) ? aClass.getName() : annotation.value();
+                Map<String, Field> taskVars = new HashMap<>();
+                ReflectionUtils.doWithFields(aClass, field -> FieldUtils.mapFieldToVar(field, taskVars, externalTaskFieldAnnotations));
 
-                                    Map<String, Field> taskVars = new HashMap<>();
-                                    ReflectionUtils.doWithFields(aClass, field -> mapFieldToVar(field, taskVars));
-
-                                    externalTaskDefinitions.put(taskName, new ExternalTask<>(taskName, aClass, taskVars));
-                                }
-                            });
-
-                    return null;
-                })
-        );
+                externalTaskDefinitions.put(taskName, new EntityMetadata<>(taskName, aClass, taskVars));
+            }
+        });
     }
 
     @Override
@@ -109,7 +96,7 @@ public class ExternalTaskManagerImpl implements ExternalTaskManager {
 
     @Override
     public Object toCommand(LockedExternalTaskDto task) {
-        ExternalTask<?> externalTask = getExternalTask(task.getTopicName());
+        EntityMetadata<?> externalTask = getExternalTask(task.getTopicName());
 
         Object command = JavaUtils.callWithoutCheckedException(() -> externalTask.getClazz().newInstance());
 
@@ -143,21 +130,21 @@ public class ExternalTaskManagerImpl implements ExternalTaskManager {
             return null;
         }
 
-        ExternalTask<?> externalTask = getExternalTask(taskName);
+        EntityMetadata<?> externalTask = getExternalTask(taskName);
 
         CompleteExternalTaskDto completeTask = new CompleteExternalTaskDto();
-        mapVarsToFields(command, externalTask, CompleteExternalTaskDto.class, completeTask);
+        FieldUtils.mapVarsToFields(command, externalTask, CompleteExternalTaskDto.class, completeTask);
 
         completeTask.setVariables(
                 externalTask.getFields()
                         .entrySet()
                         .stream()
-                        .filter(entry -> !externalTaskFieldAnnotations.containsValue(entry.getKey()))
+                        .filter(entry -> !externalTaskFieldAnnotations.containsKey(entry.getKey()))
                         .collect(Collectors.toMap(
                                 Map.Entry::getKey
                                 , entry -> {
                                     Object value = JavaUtils.getFieldWithoutCheckedException(entry.getValue(), command);
-                                    return VariableValueDto.fromTypedValue(toTypedValue(value));
+                                    return VariableValueDto.fromTypedValue(FieldUtils.toTypedValue(value));
                                 }
                         ))
         );
@@ -175,10 +162,10 @@ public class ExternalTaskManagerImpl implements ExternalTaskManager {
             return null;
         }
 
-        ExternalTask<?> externalTask = getExternalTask(taskName);
+        EntityMetadata<?> externalTask = getExternalTask(taskName);
 
         ExternalTaskFailureDto failureTask = new ExternalTaskFailureDto();
-        mapVarsToFields(command, externalTask, ExternalTaskFailureDto.class, failureTask);
+        FieldUtils.mapVarsToFields(command, externalTask, ExternalTaskFailureDto.class, failureTask);
 
         return Pair.of(
                 String.valueOf(JavaUtils.getFieldWithoutCheckedException(getIdField(externalTask), command))
@@ -186,15 +173,15 @@ public class ExternalTaskManagerImpl implements ExternalTaskManager {
         );
     }
 
-    public Map<String, ExternalTask<?>> getExternalTaskDefinitions() {
+    public Map<String, EntityMetadata<?>> getExternalTaskDefinitions() {
         return Collections.unmodifiableMap(externalTaskDefinitions);
     }
 
-    public Map<Class<? extends Annotation>, String> getExternalTaskFieldAnnotations() {
+    public Map<String, Class<? extends Annotation>> getExternalTaskFieldAnnotations() {
         return Collections.unmodifiableMap(externalTaskFieldAnnotations);
     }
 
-    private static Field getIdField(ExternalTask<?> externalTask) {
+    private static Field getIdField(EntityMetadata<?> externalTask) {
         Field idField = externalTask.getFields().get(StringUtils.uncapitalize(Id.class.getSimpleName()));
         if (idField == null) {
             throw new NoSuchFieldError("Command '" + externalTask.getName() + "' has no field annotated with '" + Id.class.getName() + "'");
@@ -202,45 +189,7 @@ public class ExternalTaskManagerImpl implements ExternalTaskManager {
         return idField;
     }
 
-    private static TypedValue toTypedValue(Object value) {
-        if (value instanceof Integer) {
-            return Variables.integerValue((Integer) value);
-        } else if (value instanceof String) {
-            return Variables.stringValue((String) value);
-        } else if (value instanceof Boolean) {
-            return Variables.booleanValue((Boolean) value);
-        } else if (value instanceof byte[]) {
-            return Variables.byteArrayValue((byte[]) value);
-        } else if (value instanceof Date) {
-            return Variables.dateValue((Date) value);
-        } else if (value instanceof Long) {
-            return Variables.longValue((Long) value);
-        } else if (value instanceof Short) {
-            return Variables.shortValue((Short) value);
-        } else if (value instanceof Double) {
-            return Variables.doubleValue((Double) value);
-        } else if (value instanceof Number) {
-            return Variables.numberValue((Number) value);
-        }
-        return Variables.untypedValue(value);
-    }
-
-    private <T> void mapVarsToFields(Object command, ExternalTask<?> externalTask, Class<T> taskClass, T task) {
-        ReflectionUtils.doWithFields(taskClass, field -> {
-            if (!externalTask.getFields().containsKey(field.getName())) {
-                return;
-            }
-
-            Field commandField = externalTask.getFields().get(field.getName());
-            JavaUtils.setFieldWithoutCheckedException(
-                    field
-                    , task
-                    , () -> JavaUtils.getFieldWithoutCheckedException(commandField, command)
-            );
-        });
-    }
-
-    private ExternalTask<?> getExternalTask(String taskName) {
+    private EntityMetadata<?> getExternalTask(String taskName) {
         if (!externalTaskDefinitions.containsKey(taskName)) {
             throw new NoSuchElementException("No task with name '" + taskName + "' found");
         }
@@ -248,41 +197,14 @@ public class ExternalTaskManagerImpl implements ExternalTaskManager {
         return externalTaskDefinitions.get(taskName);
     }
 
-    private void mapFieldToVar(Field field, Map<String, Field> taskVars) {
-        CamundaVar camundaVar = field.getAnnotation(CamundaVar.class);
-        if (camundaVar != null) {
-            taskVars.put(
-                    ExternalTaskManager.getVarName(field, camundaVar)
-                    , field
-            );
+    private boolean anyFieldContainsAnnotation(Class<?> aClass, Class<? extends Annotation> annotation) {
+        boolean haveAnnotation[] = new boolean[]{false};
+        ReflectionUtils.doWithFields(aClass, field -> haveAnnotation[0] = true, f -> f.getAnnotation(annotation) != null);
+
+        if (!haveAnnotation[0]) {
+            LOG.warn("Class [{}] annotated with @CamundaTask, but does not have field with @{} annotation", aClass.getName(), annotation.getSimpleName());
         }
 
-        loadExternalTaskFieldAnnotationsIfNeeded();
-
-        externalTaskFieldAnnotations.forEach((annotation, name) -> mapTaskFieldToVar(annotation, field, taskVars));
-    }
-
-    private void loadExternalTaskFieldAnnotationsIfNeeded() {
-        if (externalTaskFieldAnnotations.isEmpty()) {
-            JavaUtils.callWithoutCheckedException(() -> {
-                ClassPath.from(ExternalTaskProcessor.class.getClassLoader())
-                        .getTopLevelClassesRecursive(Id.class.getPackage().getName())
-                        .forEach(classInfo -> {
-                            Class<? extends Annotation> annotationClass = (Class<? extends Annotation>) classInfo.load();
-                            externalTaskFieldAnnotations.put(annotationClass, StringUtils.uncapitalize(annotationClass.getSimpleName()));
-                        });
-                return null;
-            });
-        }
-    }
-
-    private <T extends Annotation> void mapTaskFieldToVar(Class<T> annotationClass, Field field, Map<String, Field> taskVars) {
-        T annotation = field.getAnnotation(annotationClass);
-        if (annotation != null) {
-            taskVars.put(
-                    StringUtils.uncapitalize(annotationClass.getSimpleName())
-                    , field
-            );
-        }
+        return haveAnnotation[0];
     }
 }

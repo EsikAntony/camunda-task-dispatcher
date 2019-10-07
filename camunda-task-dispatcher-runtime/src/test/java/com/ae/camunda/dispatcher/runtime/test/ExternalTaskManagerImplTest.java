@@ -18,7 +18,7 @@ package com.ae.camunda.dispatcher.runtime.test;
 
 import com.ae.camunda.dispatcher.api.annotation.CamundaVar;
 import com.ae.camunda.dispatcher.api.manager.ExternalTaskManager;
-import com.ae.camunda.dispatcher.model.ExternalTask;
+import com.ae.camunda.dispatcher.model.EntityMetadata;
 import com.ae.camunda.dispatcher.runtime.manager.ExternalTaskManagerImpl;
 import com.ae.camunda.dispatcher.runtime.test.command.Command;
 import com.ae.camunda.dispatcher.runtime.test.command.WrongCommand;
@@ -70,7 +70,7 @@ public class ExternalTaskManagerImplTest {
         Assert.assertEquals(1, manager.getExternalTaskDefinitions().size());
 
         {
-            ExternalTask<?> task = manager.getExternalTaskDefinitions().get(Command.TASK_NAME);
+            EntityMetadata<?> task = manager.getExternalTaskDefinitions().get(Command.TASK_NAME);
             Assert.assertNotNull(task);
             Assert.assertEquals(Command.TASK_NAME, task.getName());
             Assert.assertEquals(20, task.getFields().size());
@@ -79,7 +79,7 @@ public class ExternalTaskManagerImplTest {
         }
 
         {
-            ExternalTask<?> task = manager.getExternalTaskDefinitions().get(WrongCommand.TASK_NAME);
+            EntityMetadata<?> task = manager.getExternalTaskDefinitions().get(WrongCommand.TASK_NAME);
             Assert.assertNull(task);
         }
     }

@@ -37,7 +37,7 @@ public class CamundaRestException extends Exception {
         this.response = response;
     }
 
-    public static CamundaRestException fromCodeAndResponse(int code,String response){
+    public static CamundaRestException fromCodeAndResponse(int code, String response) {
         CamundaRestException exception = new CamundaRestException();
         exception.setHttpCode(code);
         exception.setResponse(response);
@@ -45,9 +45,9 @@ public class CamundaRestException extends Exception {
     }
 
     @Override
-    public String getMessage(){
-        if (response!=null && httpCode!=0){
-            return String.format("Server has responded with %1$s code. Response is [%2$s].",httpCode,response);
+    public String getMessage() {
+        if (response != null && httpCode != 0) {
+            return String.format("Server has responded with %1$s code. Response is [%2$s].", httpCode, response);
         } else {
             return super.getMessage();
         }

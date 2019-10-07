@@ -32,12 +32,15 @@ import org.springframework.jms.listener.DefaultMessageListenerContainer;
 import javax.jms.ConnectionFactory;
 
 @Configuration
-public class JmsExternalCommandListenerConfig {
+public class JmsListenerConfig {
 
-    private static final Logger LOG = LoggerFactory.getLogger(JmsExternalCommandListenerConfig.class);
+    private static final Logger LOG = LoggerFactory.getLogger(JmsListenerConfig.class);
 
-    @Value("${camunda.dispatcher.jms.in-queue:dispatcherIn}")
+    @Value("${camunda.dispatcher.jms.external-task.in-queue:dispatcherIn}")
     private String inTaskQueueName;
+
+    @Value("${camunda.dispatcher.jms.signal.in-queue:dispatcherSignalIn}")
+    private String inSignalQueueName;
 
     @Value("${camunda.dispatcher.jms.activemq.broker-url:tcp://localhost:61616}")
     private String brokerUrl;
@@ -66,6 +69,11 @@ public class JmsExternalCommandListenerConfig {
     }
 
     @Bean
+    public ActiveMQQueue signalQueue() {
+        return new ActiveMQQueue(inSignalQueueName);
+    }
+
+    @Bean
     public ConnectionFactory connectionFactory() {
         ActiveMQConnectionFactory activeMQConnectionFactory = new ActiveMQConnectionFactory(brokerUrl);
 
@@ -87,6 +95,25 @@ public class JmsExternalCommandListenerConfig {
         DefaultMessageListenerContainer listenerContainer = new DefaultMessageListenerContainer();
         listenerContainer.setMessageListener(externalTaskListener);
         listenerContainer.setDestination(taskQueue);
+        listenerContainer.setConnectionFactory(connectionFactory);
+
+        listenerContainer.setAcceptMessagesWhileStopping(false);
+        listenerContainer.setSessionTransacted(true);
+        listenerContainer.setConcurrentConsumers(concurrentConsumers);
+        listenerContainer.setMaxMessagesPerTask(maxMessagesPerTask);
+        listenerContainer.setReceiveTimeout(receiveTimeout);
+        LOG.debug("DefaultMessageListenerContainer for queue [{}] with message selector [{}] was started", listenerContainer.getDestination(), listenerContainer.getMessageSelector());
+        return listenerContainer;
+    }
+
+    @Bean
+    @Autowired
+    public DefaultMessageListenerContainer signalMessageListenerContainer(JmsSignalListener signalListener
+            , ConnectionFactory connectionFactory
+            , ActiveMQQueue signalQueue) {
+        DefaultMessageListenerContainer listenerContainer = new DefaultMessageListenerContainer();
+        listenerContainer.setMessageListener(signalListener);
+        listenerContainer.setDestination(signalQueue);
         listenerContainer.setConnectionFactory(connectionFactory);
 
         listenerContainer.setAcceptMessagesWhileStopping(false);
