@@ -3,9 +3,10 @@
   <groupId>com.ae.camunda</groupId>
   <artifactId>camunda-task-dispatcher-transport-jms</artifactId>
   <versioning>
+    <release>1.5.0</release>
     <versions>
-      <version>1.4.0-SNAPSHOT</version>
+      <version>1.5.0</version>
     </versions>
-    <lastUpdated>20190926155736</lastUpdated>
+    <lastUpdated>20191007105432</lastUpdated>
   </versioning>
 </metadata>
