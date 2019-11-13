@@ -30,6 +30,8 @@ import org.camunda.bpm.engine.rest.dto.externaltask.CompleteExternalTaskDto;
 import org.camunda.bpm.engine.rest.dto.externaltask.ExternalTaskFailureDto;
 import org.camunda.bpm.engine.rest.dto.externaltask.FetchExternalTasksDto;
 import org.camunda.bpm.engine.rest.dto.externaltask.LockedExternalTaskDto;
+import org.camunda.bpm.engine.variable.Variables;
+import org.camunda.bpm.engine.variable.type.SerializableValueType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -103,7 +105,15 @@ public class ExternalTaskManagerImpl implements ExternalTaskManager {
         externalTask.getFields().forEach((varName, field) -> {
             if (task.getVariables() != null) {
                 task.getVariables().computeIfPresent(varName, (name, value) -> {
-                    JavaUtils.setFieldWithoutCheckedException(field, command, value.getValue());
+                    final Object varValue;
+                    final String serializationDataFormat = (String) value.getValueInfo().get(SerializableValueType.VALUE_INFO_SERIALIZATION_DATA_FORMAT);
+                    if (Variables.SerializationDataFormats.JAVA.getName().equalsIgnoreCase(serializationDataFormat)) {
+                        varValue = JavaUtils.deserialize((String) value.getValue());
+                    } else {
+                        varValue = value.getValue();
+                    }
+
+                    JavaUtils.setFieldWithoutCheckedException(field, command, varValue);
                     return value;
                 });
             }

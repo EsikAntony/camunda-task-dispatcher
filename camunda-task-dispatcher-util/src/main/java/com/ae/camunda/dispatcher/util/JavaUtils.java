@@ -18,13 +18,15 @@ package com.ae.camunda.dispatcher.util;
 
 import com.google.common.reflect.ClassPath;
 import org.apache.commons.lang3.StringUtils;
+import org.camunda.bpm.engine.impl.util.IoUtil;
+import org.camunda.bpm.engine.impl.variable.serializer.JavaObjectSerializer;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -125,6 +127,15 @@ public abstract class JavaUtils {
         });
 
         return map;
+    }
+
+    public static <T> T deserialize(final String base64Bytes) {
+        return callWithoutCheckedException(() -> {
+            ByteArrayInputStream bais = new ByteArrayInputStream(Base64.getDecoder().decode(base64Bytes));
+            try (ObjectInputStream ois = new ObjectInputStream(bais)) {
+                return (T) ois.readObject();
+            }
+        });
     }
 
     private static Object getFieldUnsafe(Field field, Object target) throws IllegalAccessException {
