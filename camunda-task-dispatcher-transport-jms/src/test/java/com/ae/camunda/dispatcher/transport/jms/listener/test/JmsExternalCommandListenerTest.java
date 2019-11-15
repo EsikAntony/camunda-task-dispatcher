@@ -119,6 +119,7 @@ public class JmsExternalCommandListenerTest {
 
     private void testOnMessage(String status, int completeTimes, int failtimes) throws JMSException, CamundaRestException {
         Mockito.when(textMessage.getStringProperty(Mockito.anyString())).thenReturn(status);
+        Mockito.when(textMessage.getText()).thenReturn("some text body");
         Mockito.when(taskManager.toCompleteTask(Mockito.anyString(), Mockito.anyObject())).thenReturn(Pair.of(null, new CompleteExternalTaskDto()));
         Mockito.when(taskManager.toFailTask(Mockito.anyString(), Mockito.anyObject())).thenReturn(Pair.of(null, new ExternalTaskFailureDto()));
 

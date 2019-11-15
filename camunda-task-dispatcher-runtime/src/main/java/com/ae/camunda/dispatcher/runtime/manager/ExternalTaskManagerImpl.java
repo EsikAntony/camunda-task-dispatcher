@@ -23,6 +23,7 @@ import com.ae.camunda.dispatcher.api.manager.ExternalTaskManager;
 import com.ae.camunda.dispatcher.model.EntityMetadata;
 import com.ae.camunda.dispatcher.runtime.manager.util.FieldUtils;
 import com.ae.camunda.dispatcher.util.JavaUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Strings;
 import org.apache.commons.lang3.tuple.Pair;
 import org.camunda.bpm.engine.rest.dto.VariableValueDto;
@@ -55,11 +56,14 @@ public class ExternalTaskManagerImpl implements ExternalTaskManager {
 
     private final Map<String, EntityMetadata<?>> externalTaskDefinitions = new HashMap<>();
 
+    private ObjectMapper objectMapper;
+
     private Map<String, Class<? extends Annotation>> externalTaskFieldAnnotations;
 
     @PostConstruct
     public void init() {
         this.externalTaskFieldAnnotations = JavaUtils.loadAnnotations(Id.class.getPackage().getName());
+        this.objectMapper = new ObjectMapper();
 
         LOG.info("Analyze packages: {}", packages);
         JavaUtils.forEachClass(packages, aClass -> {
@@ -110,7 +114,13 @@ public class ExternalTaskManagerImpl implements ExternalTaskManager {
                     if (Variables.SerializationDataFormats.JAVA.getName().equalsIgnoreCase(serializationDataFormat)) {
                         varValue = JavaUtils.deserialize((String) value.getValue());
                     } else {
-                        varValue = value.getValue();
+                        if (value.getValue() == null) {
+                            varValue = null;
+                        } else if (field.getType().isAssignableFrom(value.getValue().getClass())) {
+                            varValue = value.getValue();
+                        } else {
+                            varValue = JavaUtils.callWithoutCheckedException(() -> objectMapper.readValue("\"" + value.getValue() + "\"", field.getType()));
+                        }
                     }
 
                     JavaUtils.setFieldWithoutCheckedException(field, command, varValue);
