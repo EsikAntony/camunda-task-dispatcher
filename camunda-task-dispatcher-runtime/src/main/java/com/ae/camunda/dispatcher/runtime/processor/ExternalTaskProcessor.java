@@ -79,6 +79,8 @@ public class ExternalTaskProcessor implements Runnable {
 
     private List<FetchExternalTasksDto.FetchExternalTaskTopicDto> topics;
 
+    private volatile boolean paused;
+
     @PostConstruct
     public void init() throws IOException {
         initTopics();
@@ -118,6 +120,12 @@ public class ExternalTaskProcessor implements Runnable {
     private void runUnsafe() {
         LOG.info("External task processor thread [{}] started", Thread.currentThread().getName());
         while (!Thread.currentThread().isInterrupted()) {
+            if (isPaused()) {
+                LOG.debug("External task processor is paused, let's wait for {}ms", emptyWait);
+                sleep();
+                continue;
+            }
+
             // запрашиваем таски со всех топиков
             List<LockedExternalTaskDto> tasks = null;
             try {
@@ -137,13 +145,8 @@ public class ExternalTaskProcessor implements Runnable {
             }
 
             if (CollectionUtils.isEmpty(tasks)) {
-                try {
-                    LOG.debug("No tasks at topics, let's wait for {}ms", emptyWait);
-                    Thread.sleep(emptyWait);
-                } catch (InterruptedException e) {
-                    LOG.warn("Empty external tasks wait is interrupted, cause: {}", e.getMessage());
-                    Thread.currentThread().interrupt();
-                }
+                LOG.debug("No tasks at topics, let's wait for {}ms", emptyWait);
+                sleep();
             } else {
                 tasks.forEach(task -> {
                     try {
@@ -169,5 +172,22 @@ public class ExternalTaskProcessor implements Runnable {
             }
         }
         LOG.info("External task processor thread [{}] stopped", Thread.currentThread().getName());
+    }
+
+    public boolean isPaused() {
+        return paused;
+    }
+
+    public void setPaused(final boolean paused) {
+        this.paused = paused;
+    }
+
+    private void sleep() {
+        try {
+            Thread.sleep(emptyWait);
+        } catch (InterruptedException e) {
+            LOG.warn("External tasks wait is interrupted, cause: {}", e.getMessage());
+            Thread.currentThread().interrupt();
+        }
     }
 }
