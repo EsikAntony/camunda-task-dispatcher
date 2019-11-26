@@ -29,6 +29,7 @@ import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -127,9 +128,8 @@ public class ExternalTaskRestServiceImpl implements ExternalTaskRestService {
         HttpPost post = new HttpPost(url);
         try {
             String requestJson = objectMapper.writeValueAsString(data);
-            StringEntity entity = new StringEntity(requestJson);
+            StringEntity entity = new StringEntity(requestJson, ContentType.APPLICATION_JSON);
             post.setEntity(entity);
-            post.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
             executeAbstractMethod(post);
         } catch (Exception ex) {
             throw new CamundaRestException(ex);
