@@ -21,6 +21,7 @@ import com.ae.camunda.dispatcher.api.jms.Headers;
 import com.ae.camunda.dispatcher.api.manager.ExternalTaskManager;
 import com.ae.camunda.dispatcher.api.mapper.TaskMapper;
 import com.ae.camunda.dispatcher.api.service.ExternalTaskRestService;
+import com.ae.camunda.dispatcher.util.jms.JmsTemplate;
 import org.apache.commons.lang3.tuple.Pair;
 import org.camunda.bpm.engine.rest.dto.externaltask.CompleteExternalTaskDto;
 import org.camunda.bpm.engine.rest.dto.externaltask.ExternalTaskFailureDto;
@@ -28,7 +29,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -62,6 +62,9 @@ public class JmsExternalCommandListener implements MessageListener {
 
     @Value("${camunda.dispatcher.jms.external-task.dl-queue:dispatcherDLQ}")
     private String dlq;
+
+    @Value("${camunda.dispatcher.jms.external-task.dl-queue.ttl:604800000}")
+    private long dlqTtl;
 
     public void onMessage(Message message) {
         if (!(message instanceof TextMessage)) {
@@ -109,7 +112,7 @@ public class JmsExternalCommandListener implements MessageListener {
     }
 
     private void sendToDlq(TextMessage textMessage, Throwable e) {
-        jmsTemplate.send(dlq, (Session session) -> {
+        jmsTemplate.send(dlq, dlqTtl, (Session session) -> {
             TextMessage dlqMessage = session.createTextMessage();
             dlqMessage.setStringProperty(errorHeader, e.getMessage());
             dlqMessage.setText(textMessage.getText());

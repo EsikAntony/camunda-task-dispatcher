@@ -21,6 +21,7 @@ import com.ae.camunda.dispatcher.api.mapper.SignalMapper;
 import com.ae.camunda.dispatcher.api.service.SignalRestService;
 import com.ae.camunda.dispatcher.exception.CamundaRestException;
 import com.ae.camunda.dispatcher.util.JavaUtils;
+import com.ae.camunda.dispatcher.util.jms.JmsTemplate;
 import com.google.common.collect.ImmutableSet;
 import org.apache.activemq.ScheduledMessage;
 import org.apache.activemq.command.ActiveMQQueue;
@@ -31,7 +32,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -77,6 +77,9 @@ public class JmsSignalListener implements MessageListener {
 
     @Value("${camunda.dispatcher.jms.signal.dl-queue:dispatcherSignalDLQ}")
     private String dlq;
+
+    @Value("${camunda.dispatcher.jms.signal.dl-queue.ttl:604800000}")
+    private long dlqTtl;
 
     @Override
     public void onMessage(Message message) {
@@ -136,7 +139,7 @@ public class JmsSignalListener implements MessageListener {
     }
 
     private void sendToDlq(TextMessage textMessage, Throwable e) {
-        jmsTemplate.send(dlq, (Session session) -> {
+        jmsTemplate.send(dlq, dlqTtl, (Session session) -> {
             TextMessage dlqMessage = session.createTextMessage(textMessage.getText());
             copyHeaders(textMessage, dlqMessage);
             dlqMessage.setStringProperty(errorHeader, e.getMessage());

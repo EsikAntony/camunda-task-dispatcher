@@ -19,7 +19,7 @@
     <parent>
         <artifactId>camunda-task-dispatcher</artifactId>
         <groupId>com.ae.camunda</groupId>
-        <version>1.5.4-SNAPSHOT</version>
+        <version>1.5.5-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -27,7 +27,6 @@
     <packaging>jar</packaging>
 
     <name>camunda-task-dispatcher-mapper-json</name>
-    <url>http://maven.apache.org</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -43,17 +42,6 @@
             <groupId>com.ae.camunda</groupId>
             <artifactId>camunda-task-dispatcher-util</artifactId>
             <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <version>${version.jackson}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${version.jackson}</version>
         </dependency>
     </dependencies>
 </project>

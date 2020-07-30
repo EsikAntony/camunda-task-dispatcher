@@ -23,6 +23,7 @@ import com.ae.camunda.dispatcher.api.service.ExternalTaskRestService;
 import com.ae.camunda.dispatcher.exception.CamundaRestException;
 import com.ae.camunda.dispatcher.transport.jms.listener.JmsExternalCommandListener;
 import com.ae.camunda.dispatcher.util.JavaUtils;
+import com.ae.camunda.dispatcher.util.jms.JmsTemplate;
 import org.apache.commons.lang3.tuple.Pair;
 import org.camunda.bpm.engine.rest.dto.externaltask.CompleteExternalTaskDto;
 import org.camunda.bpm.engine.rest.dto.externaltask.ExternalTaskFailureDto;
@@ -32,7 +33,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.jms.core.JmsTemplate;
 import org.springframework.util.ReflectionUtils;
 
 import javax.jms.BytesMessage;
@@ -114,7 +114,7 @@ public class JmsExternalCommandListenerTest {
 
         Mockito.verify(taskService, Mockito.never()).complete(Mockito.anyString(), Mockito.any());
         Mockito.verify(taskService, Mockito.never()).fail(Mockito.anyString(), Mockito.any());
-        Mockito.verify(jmsTemplate, Mockito.times(1)).send(Mockito.anyString(), Mockito.any());
+        Mockito.verify(jmsTemplate, Mockito.times(1)).send(Mockito.anyString(), Mockito.anyLong(), Mockito.any());
     }
 
     private void testOnMessage(String status, int completeTimes, int failtimes) throws JMSException, CamundaRestException {

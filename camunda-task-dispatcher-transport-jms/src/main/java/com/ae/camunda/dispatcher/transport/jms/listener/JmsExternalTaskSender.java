@@ -19,12 +19,12 @@ package com.ae.camunda.dispatcher.transport.jms.listener;
 import com.ae.camunda.dispatcher.api.manager.ExternalTaskManager;
 import com.ae.camunda.dispatcher.api.mapper.TaskMapper;
 import com.ae.camunda.dispatcher.api.sender.ExternalTaskSender;
+import com.ae.camunda.dispatcher.util.jms.JmsTemplate;
 import com.google.common.base.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.jms.JMSException;
