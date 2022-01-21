@@ -61,7 +61,7 @@
         <version.jms-api>1.1-rev-1</version.jms-api>
         <version.httpclient>4.5.2</version.httpclient>
         <version.junit>4.12</version.junit>
-        <version.h2>1.4.195</version.h2>
+        <version.h2>2.1.210</version.h2>
         <version.powermock>1.6.5</version.powermock>
         <version.mockito>1.10.19</version.mockito>
         <version.dozer>5.5.1</version.dozer>
