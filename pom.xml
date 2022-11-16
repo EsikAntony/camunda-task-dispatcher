@@ -49,7 +49,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- libs -->
         <version.activemq>5.15.9</version.activemq>
-        <version.jackson>2.11.1</version.jackson>
+        <version.jackson>2.12.7.1</version.jackson>
         <version.moxy>2.7.0</version.moxy>
         <version.slf4j>1.7.22</version.slf4j>
         <version.spring.framework>4.3.8.RELEASE</version.spring.framework>
