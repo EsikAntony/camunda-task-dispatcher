@@ -18,11 +18,11 @@ package com.ae.camunda.dispatcher.mapper.xml;
 
 import com.ae.camunda.dispatcher.api.mapper.TaskMapper;
 import com.ae.camunda.dispatcher.exception.CamundaMappingException;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
 import org.eclipse.persistence.jaxb.JAXBContextFactory;
 import org.springframework.stereotype.Component;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.Collections;
