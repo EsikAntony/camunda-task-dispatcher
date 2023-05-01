@@ -24,7 +24,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.util.ReflectionUtils;
 
 import javax.jms.JMSException;
@@ -50,10 +50,18 @@ public class JmsExternalTaskListenerTest {
                 , listener
                 , registry
         );
+        JavaUtils.setFieldWithoutCheckedException(
+                ReflectionUtils.findField(JmsExternalTaskListener.class, "header")
+                , listener
+                , "header"
+        );
     }
 
     @Test
     public void testOnMessage() throws JMSException {
+        Mockito.when(message.getText()).thenReturn("message body");
+        Mockito.when(message.getStringProperty(Mockito.anyString())).thenReturn("string property");
+
         listener.onMessage(message);
 
         Mockito.verify(registry, Mockito.atLeastOnce()).process(Mockito.anyString(), Mockito.anyString());
