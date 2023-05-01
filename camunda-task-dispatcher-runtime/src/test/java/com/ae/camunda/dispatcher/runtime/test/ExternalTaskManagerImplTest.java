@@ -41,6 +41,7 @@ import org.springframework.util.ReflectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -66,14 +67,14 @@ public class ExternalTaskManagerImplTest {
     public void testInit() {
         manager.init();
 
-        Assert.assertEquals(18, manager.getExternalTaskFieldAnnotations().size());
+        Assert.assertEquals(20, manager.getExternalTaskFieldAnnotations().size());
         Assert.assertEquals(1, manager.getExternalTaskDefinitions().size());
 
         {
             EntityMetadata<?> task = manager.getExternalTaskDefinitions().get(Command.TASK_NAME);
             Assert.assertNotNull(task);
             Assert.assertEquals(Command.TASK_NAME, task.getName());
-            Assert.assertEquals(20, task.getFields().size());
+            Assert.assertEquals(22, task.getFields().size());
 
             testFields((key) -> Assert.assertNotNull(task.getFields().get(key)));
         }
@@ -100,7 +101,7 @@ public class ExternalTaskManagerImplTest {
         Assert.assertEquals(Command.TASK_NAME, topic.getTopicName());
 
         Assert.assertNotNull(topic.getVariables());
-        Assert.assertEquals(20, topic.getVariables().size());
+        Assert.assertEquals(22, topic.getVariables().size());
 
         testFields((key) -> Assert.assertTrue(topic.getVariables().contains(key)));
     }
@@ -134,18 +135,26 @@ public class ExternalTaskManagerImplTest {
         Assert.assertEquals(stringVar, command.getStringVar());
         Assert.assertEquals(otherVar, command.getAnotherStringVar());
 
+        final var absentCommandFields = new ArrayList<String>();
         ReflectionUtils.doWithFields(LockedExternalTaskDto.class, field -> {
             if (field.getName().equals("variables")) {
                 return;
             }
 
             Field commandField = ReflectionUtils.findField(Command.class, field.getName());
-            Assert.assertNotNull("No field with name: " + field.getName(), commandField);
-            Assert.assertEquals(
-                    JavaUtils.getFieldWithoutCheckedException(field, task)
-                    , JavaUtils.getFieldWithoutCheckedException(commandField, command)
-            );
+            if (commandField == null) {
+                absentCommandFields.add(field.getName());
+            } else {
+                Assert.assertEquals(
+                        JavaUtils.getFieldWithoutCheckedException(field, task)
+                        , JavaUtils.getFieldWithoutCheckedException(commandField, command)
+                );
+            }
         });
+
+        if (!absentCommandFields.isEmpty()) {
+            Assert.fail("Command has no field with name: " + String.join(", ", absentCommandFields));
+        }
     }
 
     @Test

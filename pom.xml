@@ -50,17 +50,17 @@
 
     <properties>
         <!-- compiler -->
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- libs -->
-        <version.activemq>5.16.6</version.activemq>
-        <version.moxy>3.0.3</version.moxy>
-        <version.jakarta.xml.bind>3.0.0</version.jakarta.xml.bind>
+        <version.activemq>5.18.1</version.activemq>
+        <version.moxy>4.0.1</version.moxy>
+        <version.jakarta.xml.bind>4.0.0</version.jakarta.xml.bind>
         <version.slf4j>1.7.36</version.slf4j>
         <version.commons-io>2.11.0</version.commons-io>
         <version.guava>31.1-jre</version.guava>
-        <version.camunda>7.11.0</version.camunda>
+        <version.camunda>7.19.0</version.camunda>
         <version.joda-time>2.12.5</version.joda-time>
         <version.jms-api>1.1-rev-1</version.jms-api>
         <version.httpclient>4.5.14</version.httpclient>
@@ -193,7 +193,7 @@
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
-                <version>8.2.1</version>
+                <version>${version.dependency-check-maven}</version>
                 <executions>
                     <execution>
                         <goals>
