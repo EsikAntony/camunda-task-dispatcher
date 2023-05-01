@@ -22,6 +22,7 @@ import com.ae.camunda.dispatcher.api.annotation.task.*;
 
 import javax.xml.bind.annotation.XmlElement;
 import java.util.Date;
+import java.util.Map;
 
 @CamundaTask(Command.TASK_NAME)
 public class Command {
@@ -65,6 +66,9 @@ public class Command {
     @ProcessDefinitionKey
     private String processDefinitionKey;
 
+    @ProcessDefinitionVersionTag
+    private String processDefinitionVersionTag;
+
     @ProcessInstanceId
     private String processInstanceId;
 
@@ -91,6 +95,9 @@ public class Command {
 
     @BusinessKey
     private String businessKey;
+
+    @ExtensionProperties
+    private Map<String, String> extensionProperties;
 
     public String getStringVar() {
         return stringVar;
@@ -258,5 +265,21 @@ public class Command {
 
     private void setBusinessKey(final String businessKey) {
         this.businessKey = businessKey;
+    }
+
+    private String getProcessDefinitionVersionTag() {
+        return processDefinitionVersionTag;
+    }
+
+    private void setProcessDefinitionVersionTag(final String processDefinitionVersionTag) {
+        this.processDefinitionVersionTag = processDefinitionVersionTag;
+    }
+
+    private Map<String, String> getExtensionProperties() {
+        return extensionProperties;
+    }
+
+    private void setExtensionProperties(final Map<String, String> extensionProperties) {
+        this.extensionProperties = extensionProperties;
     }
 }

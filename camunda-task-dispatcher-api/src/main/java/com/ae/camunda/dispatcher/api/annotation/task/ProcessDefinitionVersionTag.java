@@ -14,11 +14,14 @@
  * limitations under the License.
  */
 
-package com.ae.camunda.bpm.engine.impl.cfg;
+package com.ae.camunda.dispatcher.api.annotation.task;
 
-public class StandaloneInMemProcessEngineConfiguration extends org.camunda.bpm.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration {
-    public StandaloneInMemProcessEngineConfiguration() {
-        super();
-        this.jdbcUrl += ";MODE=LEGACY";
-    }
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+@Target(ElementType.FIELD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface ProcessDefinitionVersionTag {
 }
