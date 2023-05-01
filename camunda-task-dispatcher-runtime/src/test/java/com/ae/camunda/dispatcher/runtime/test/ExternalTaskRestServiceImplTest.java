@@ -37,8 +37,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.util.ReflectionUtils;
 
 import java.io.IOException;
@@ -47,8 +46,7 @@ import java.io.StringBufferInputStream;
 import java.util.Collections;
 import java.util.List;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(TypeFactory.class)
+@RunWith(MockitoJUnitRunner.class)
 public class ExternalTaskRestServiceImplTest {
 
     private ExternalTaskRestServiceImpl service;

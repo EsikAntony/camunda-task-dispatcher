@@ -28,7 +28,7 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 import org.springframework.util.ReflectionUtils;
@@ -41,6 +41,8 @@ import javax.jms.TextMessage;
 public class JmsExternalTaskSenderTest {
 
     private static final String HEADER = "header";
+
+    private static final String QUEUE = "queue";
 
     @Mock
     private JmsTemplate jmsTemplate;
@@ -61,7 +63,7 @@ public class JmsExternalTaskSenderTest {
         Mockito.when(session.createTextMessage()).thenReturn(textMessage);
 
         Mockito.doAnswer(invocation -> {
-            invocation.getArgumentAt(1, MessageCreator.class).createMessage(session);
+            invocation.getArgument(1, MessageCreator.class).createMessage(session);
             return null;
         }).when(jmsTemplate)
           .send(Mockito.anyString(), Mockito.any(MessageCreator.class));
@@ -81,6 +83,11 @@ public class JmsExternalTaskSenderTest {
                 ReflectionUtils.findField(JmsExternalTaskSender.class, "header")
                 , sender
                 , HEADER
+        );
+        JavaUtils.setFieldWithoutCheckedException(
+                ReflectionUtils.findField(JmsExternalTaskSender.class, "queueIn")
+                , sender
+                , QUEUE
         );
     }
 

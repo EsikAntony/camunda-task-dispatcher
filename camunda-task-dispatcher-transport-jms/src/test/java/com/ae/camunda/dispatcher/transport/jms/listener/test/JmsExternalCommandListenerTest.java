@@ -32,7 +32,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.util.ReflectionUtils;
 
 import javax.jms.BytesMessage;
@@ -41,6 +41,10 @@ import javax.jms.TextMessage;
 
 @RunWith(MockitoJUnitRunner.class)
 public class JmsExternalCommandListenerTest {
+
+    private static final String HEADER = "header";
+
+    private static final String DLQ = "dlq";
 
     @Mock
     private ExternalTaskRestService taskService;
@@ -86,6 +90,16 @@ public class JmsExternalCommandListenerTest {
                 , listener
                 , jmsTemplate
         );
+        JavaUtils.setFieldWithoutCheckedException(
+                ReflectionUtils.findField(JmsExternalCommandListener.class, "typeHeader")
+                , listener
+                , HEADER
+        );
+        JavaUtils.setFieldWithoutCheckedException(
+                ReflectionUtils.findField(JmsExternalCommandListener.class, "dlq")
+                , listener
+                , DLQ
+        );
     }
 
     @Test
@@ -120,14 +134,14 @@ public class JmsExternalCommandListenerTest {
     private void testOnMessage(String status, int completeTimes, int failtimes) throws JMSException, CamundaRestException {
         Mockito.when(textMessage.getStringProperty(Mockito.anyString())).thenReturn(status);
         Mockito.when(textMessage.getText()).thenReturn("some text body");
-        Mockito.when(taskManager.toCompleteTask(Mockito.anyString(), Mockito.anyObject())).thenReturn(Pair.of(null, new CompleteExternalTaskDto()));
-        Mockito.when(taskManager.toFailTask(Mockito.anyString(), Mockito.anyObject())).thenReturn(Pair.of(null, new ExternalTaskFailureDto()));
+        Mockito.when(taskManager.toCompleteTask(Mockito.anyString(), Mockito.any())).thenReturn(Pair.of("taskId", new CompleteExternalTaskDto()));
+        Mockito.when(taskManager.toFailTask(Mockito.anyString(), Mockito.any())).thenReturn(Pair.of("taskId", new ExternalTaskFailureDto()));
 
         listener.onMessage(textMessage);
 
         Mockito.verify(taskManager, Mockito.atLeastOnce()).getCommandClass(Mockito.anyString());
-        Mockito.verify(taskManager, Mockito.times(completeTimes)).toCompleteTask(Mockito.anyString(), Mockito.anyObject());
-        Mockito.verify(taskManager, Mockito.times(failtimes)).toFailTask(Mockito.anyString(), Mockito.anyObject());
+        Mockito.verify(taskManager, Mockito.times(completeTimes)).toCompleteTask(Mockito.anyString(), Mockito.any());
+        Mockito.verify(taskManager, Mockito.times(failtimes)).toFailTask(Mockito.anyString(), Mockito.any());
         Mockito.verify(taskService, Mockito.times(completeTimes)).complete(Mockito.anyString(), Mockito.any());
         Mockito.verify(taskService, Mockito.times(failtimes)).fail(Mockito.anyString(), Mockito.any());
     }

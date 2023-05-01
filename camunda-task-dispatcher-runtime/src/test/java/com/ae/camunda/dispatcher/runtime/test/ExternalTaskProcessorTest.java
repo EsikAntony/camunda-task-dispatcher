@@ -43,7 +43,7 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.util.ReflectionUtils;
 
 import java.io.IOException;
@@ -82,7 +82,7 @@ public class ExternalTaskProcessorTest {
                 );
 
         Mockito.when(externalTaskRestService.fetchAndLock(Mockito.any(FetchExternalTasksDto.class))).then((invocation) -> {
-            FetchExternalTasksDto arg = invocation.getArgumentAt(0, FetchExternalTasksDto.class);
+            FetchExternalTasksDto arg = invocation.getArgument(0, FetchExternalTasksDto.class);
 
             BeanMappingBuilder mappingBuilder = new BeanMappingBuilder() {
                 @Override
