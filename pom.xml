@@ -59,7 +59,7 @@
         <version.jakarta.xml.bind>4.0.0</version.jakarta.xml.bind>
         <version.slf4j>1.7.36</version.slf4j>
         <version.commons-io>2.11.0</version.commons-io>
-        <version.guava>31.1-jre</version.guava>
+        <version.guava>32.0.0-jre</version.guava>
         <version.camunda>7.19.0</version.camunda>
         <version.joda-time>2.12.5</version.joda-time>
         <version.jms-api>1.1-rev-1</version.jms-api>
