@@ -1,0 +1,16 @@
+@startuml
+!theme materia
+
+autonumber
+
+"Camunda BPM" -> "Camunda BPM": Generate External Tasks according to business process diagram
+"Task Dispatcher Service" -> "Camunda BPM": Requests External Tasks
+"Camunda BPM" --> "Task Dispatcher Service": Locks and returns External Tasks
+"Task Dispatcher Service" -> Broker: Publishes External Task Commands
+Broker -> "External Task Service": Delivers Commands
+"External Task Service" -> "External Task Service": Executes Commands
+"External Task Service" -> Broker: Publishes task execution Results
+Broker -> "Task Dispatcher Service": Delivers task execution Results
+"Task Dispatcher Service" -> "Camunda BPM": Completes External Tasks according to Results
+
+@enduml
