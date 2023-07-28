@@ -21,7 +21,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class TaskDispatcherApplication {
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) {
         SpringApplication.run(TaskDispatcherApplication.class, args);
     }
 }

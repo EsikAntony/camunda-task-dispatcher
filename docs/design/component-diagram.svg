@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="us-ascii" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css"
+     height="970.8333px" preserveAspectRatio="none" style="width:1488px;height:970px;" version="1.1"
+     viewBox="0 0 1488 970" width="1488.5417px" zoomAndPan="magnify">
+    <rect width="100%" height="100%" fill="gray"/>
+    <defs>
+        <linearGradient id="gttwltbpt69s70" x1="50%" x2="50%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#FFFFFF"/>
+            <stop offset="100%" stop-color="#FFFFFF"/>
+        </linearGradient>
+        <filter height="300%" id="fttwltbpt69s7" width="300%" x="-1" y="-1">
+            <feGaussianBlur result="blurOut" stdDeviation="2.0833333333333335"/>
+            <feColorMatrix in="blurOut" result="blurOut2" type="matrix"
+                           values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/>
+            <feOffset dx="4.166666666666667" dy="4.166666666666667" in="blurOut2" result="blurOut3"/>
+            <feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/>
+        </filter>
+        <linearGradient id="gttwltbpt69s71" x1="50%" x2="50%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#4DABF5"/>
+            <stop offset="100%" stop-color="#2196F3"/>
+        </linearGradient>
+    </defs>
+    <g><!--cluster External Task Service-->
+        <g id="cluster_External Task Service">
+            <polygon fill="url(#gttwltbpt69s70)" filter="url(#fttwltbpt69s7)"
+                     points="27.0833,27.0833,37.5,16.6667,506.25,16.6667,506.25,588.8854,495.8333,599.3021,27.0833,599.3021,27.0833,27.0833"
+                     style="stroke:#2196F3;stroke-width:1.0416666666666667;"/>
+            <line style="stroke:#2196F3;stroke-width:1.0416666666666667;" x1="495.8333" x2="506.25" y1="27.0833"
+                  y2="16.6667"/>
+            <line style="stroke:#2196F3;stroke-width:1.0416666666666667;" x1="27.0833" x2="495.8333" y1="27.0833"
+                  y2="27.0833"/>
+            <line style="stroke:#2196F3;stroke-width:1.0416666666666667;" x1="495.8333" x2="495.8333" y1="27.0833"
+                  y2="599.3021"/>
+            <text fill="#222222" font-family="Verdana" font-size="12.5" font-weight="bold" lengthAdjust="spacing"
+                  textLength="151.0417" x="186.9792" y="53.1921">External Task Service
+            </text>
+        </g>
+        <g id="cluster_##13">
+            <path d="M582.9497,679.973 C586.901,672.8603 592.3563,672.4668 596.9511,679.3283 C599.5246,672.4253 603.8752,671.5712 609.2071,676.4618 C613.8755,668.9181 618.3966,669.7141 623.3487,676.1754 C626.0994,670.219 632.0097,668.3438 636.1857,674.6878 C639.3081,666.7805 645.0145,666.2524 650.6464,672.0373 C653.9008,663.7604 659.4616,664.8978 664.6923,669.9556 C669.1628,664.6076 673.9707,664.1629 677.1305,671.265 C682.1784,665.6216 687.5299,666.902 690.5831,673.4636 C694.7218,665.476 701.9597,666.8514 705.6486,673.9139 C710.0153,670.0603 715.7005,670.667 717.3432,677.0314 C722.5207,670.8253 728.3086,670.7751 731.9076,678.6625 C740.9193,672.1994 748.3646,675.147 751.0417,685.7604 C752.2712,686.1521 752.6133,687.1993 751.6312,688.1391 C760.8573,691.2617 761.4368,697.1138 754.7064,703.4428 C763.2065,705.1758 764.5058,712.9666 759.5374,718.907 C768.1707,722.4942 768.8078,727.6897 761.9672,733.8012 C769.418,738.9072 767.3092,745.2757 760.3773,748.8635 C765.5938,754.5832 764.1783,761.906 756.009,763.6791 C761.7597,774.7868 758.8302,786.5189 743.75,786.375 C745.0034,785.8345 745.7541,786.5569 745.7633,787.7885 C742.6971,793.8499 737.4787,795.484 732.476,790.0213 C728.0581,796.7039 722.182,798.0464 717.2679,790.5536 C713.9554,796.6955 709.3212,797.3584 705.2148,791.3405 C701.942,799.6737 697.2531,798.8392 691.403,794.0542 C687.1553,801.094 680.815,801.0794 676.8665,793.7514 C673.8983,801.101 668.3064,801.2039 663.6999,795.3901 C659.9977,801.796 654.4483,802.1767 650.3352,795.8204 C645.0975,801.2524 641.2691,800.806 637.8326,793.9827 C633.5063,798.9363 627.2809,799.5211 624.896,791.9737 C620.0746,797.8646 614.7084,797.0047 610.758,790.9434 C605.078,796.412 599.8621,795.3966 597.187,787.8178 C586.688,794.8039 578.1243,790.83 575,779.0833 C575.5041,778.6426 576.1761,778.744 576.2813,779.5076 C568.5694,775.9358 568.2175,771.3244 573.6802,765.3346 C566.6973,760.2705 567.6531,753.4196 574.5356,749.0854 C566.1894,745.6503 566.4411,738.1832 572.3692,732.8441 C564.3622,727.931 565.4402,720.1989 573.9551,716.9325 C567.6538,711.0157 567.4126,706.6168 575.8678,702.6806 C565.0439,693.072 570.4391,682.0609 582.2917,678.4688 C583.094,678.5678 583.4706,679.2951 582.9497,679.973 "
+                  fill="url(#gttwltbpt69s70)" filter="url(#fttwltbpt69s7)"
+                  style="stroke:#2196F3;stroke-width:1.0416666666666667;"/>
+        </g><!--cluster Task Dispatcher Service-->
+        <g id="cluster_Task Dispatcher Service">
+            <polygon fill="url(#gttwltbpt69s70)" filter="url(#fttwltbpt69s7)"
+                     points="1063.5417,465.3646,1073.9583,454.9479,1407.2917,454.9479,1407.2917,784.2917,1396.875,794.7083,1063.5417,794.7083,1063.5417,465.3646"
+                     style="stroke:#2196F3;stroke-width:1.0416666666666667;"/>
+            <line style="stroke:#2196F3;stroke-width:1.0416666666666667;" x1="1396.875" x2="1407.2917" y1="465.3646"
+                  y2="454.9479"/>
+            <line style="stroke:#2196F3;stroke-width:1.0416666666666667;" x1="1063.5417" x2="1396.875" y1="465.3646"
+                  y2="465.3646"/>
+            <line style="stroke:#2196F3;stroke-width:1.0416666666666667;" x1="1396.875" x2="1396.875" y1="465.3646"
+                  y2="794.7083"/>
+            <text fill="#222222" font-family="Verdana" font-size="12.5" font-weight="bold" lengthAdjust="spacing"
+                  textLength="167.7083" x="1147.3958" y="491.4734">Task Dispatcher Service
+            </text>
+        </g>
+        <g id="cluster_##26">
+            <path d="M1243.869,838.5514 C1249.4587,830.7845 1255.1805,830.578 1261.4739,837.7204 C1265.6256,828.4715 1273.2099,825.0604 1280.5107,834.5152 C1284.8298,827.5458 1290.9605,827.2605 1295.2258,834.5707 C1299.7585,825.1939 1308.0209,823.9491 1313.9708,833.14 C1317.4595,824.1263 1325.4875,823.1848 1330.7789,831.3792 C1333.7829,822.5264 1342.3705,820.7058 1348.757,827.4903 C1354.1109,820.6616 1362.576,821.9038 1366.0875,829.6769 C1373.4345,822.0508 1378.5539,823.5839 1382.6866,832.8377 C1389.514,822.6166 1396.797,824.5954 1402.3635,834.0957 C1407.4194,825.9382 1415.4534,827.836 1418.7049,835.912 C1423.6695,829.1798 1431.0345,828.8182 1435.1017,836.9048 C1445.7771,829.5215 1455.6728,830.4014 1459.375,844.7083 C1460.0729,845.0324 1460.0794,845.5994 1459.433,845.9845 C1468.4083,848.6499 1471.2847,853.8163 1464.5756,861.6354 C1473.7502,866.1018 1474.4637,871.2075 1467.3172,878.3509 C1474.5616,882.2535 1475.3126,887.6748 1469.6162,893.5366 C1476.3859,899.0838 1475.1166,905.8002 1467.6484,909.6035 C1474.124,915.7402 1471.4251,921.2919 1464.0936,924.0252 C1470.4309,936.3766 1466.6775,944.7706 1452.0833,945.3125 C1453.6009,945.6896 1454.0791,947.0033 1453.1196,948.2533 C1446.7586,955.2627 1441.1596,957.7392 1435.2484,947.7796 C1429.8311,956.3111 1423.3321,955.9352 1419.0391,946.7509 C1414.4056,957.4313 1408.4822,958.4663 1400.771,949.6321 C1395.2835,956.3624 1390.3863,956.426 1384.5998,949.9997 C1377.5984,957.51 1370.1766,958.5853 1365.159,947.8821 C1361.4174,956.7594 1353.7634,955.6387 1348.9016,949.0605 C1343.6366,956.0353 1338.086,955.607 1332.8025,949.0826 C1326.4909,959.0233 1318.9674,958.6587 1312.8796,948.8569 C1308.246,956.918 1300.7717,957.0293 1296.9321,948.1111 C1291.8421,957.0551 1284.1111,955.1549 1279.505,947.6 C1275.0036,956.7429 1268.3138,956.4885 1262.6413,948.7714 C1250.1647,957.4283 1238.1689,953.9898 1235.4167,938.0208 C1236.0227,937.5654 1236.4628,937.7045 1236.5837,938.4806 C1229.9201,935.3927 1229.1691,928.0972 1234.7108,923.485 C1225.3739,920.6826 1224.578,914.7465 1230.9441,908.0996 C1222.9048,905.4882 1223.1696,899.0466 1228.6316,894.1905 C1220.9929,887.6792 1223.5671,881.6196 1231.1247,877.3593 C1223.7418,872.0465 1224.5068,864.2081 1232.7595,860.4028 C1224.4906,847.8936 1228.6617,840.2672 1242.7083,837.4167 C1243.621,837.2125 1244.0594,837.6274 1243.869,838.5514 "
+                  fill="url(#gttwltbpt69s70)" filter="url(#fttwltbpt69s7)"
+                  style="stroke:#2196F3;stroke-width:1.0416666666666667;"/>
+        </g><!--entity Command_1 Processor-->
+        <g id="elem_Command_1 Processor">
+            <rect fill="url(#gttwltbpt69s71)" filter="url(#fttwltbpt69s7)" height="67.275" rx="4.1667" ry="4.1667"
+                  style="stroke:#2196F3;stroke-width:1.0416666666666667;" width="205.2083" x="43.2292" y="338.7083"/>
+            <rect fill="url(#gttwltbpt69s71)" height="10.4167" style="stroke:#2196F3;stroke-width:1.0416666666666667;"
+                  width="15.625" x="227.6042" y="343.9167"/>
+            <rect fill="url(#gttwltbpt69s71)" height="2.0833" style="stroke:#2196F3;stroke-width:1.0416666666666667;"
+                  width="4.1667" x="225.5208" y="346"/>
+            <rect fill="url(#gttwltbpt69s71)" height="2.0833" style="stroke:#2196F3;stroke-width:1.0416666666666667;"
+                  width="4.1667" x="225.5208" y="350.1667"/>
+            <text fill="#FFFFFF" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="142.7083"
+                  x="69.2708" y="382.5255">Command_1 Processor
+            </text>
+        </g><!--entity Command_2 Processor-->
+        <g id="elem_Command_2 Processor">
+            <rect fill="url(#gttwltbpt69s71)" filter="url(#fttwltbpt69s7)" height="67.275" rx="4.1667" ry="4.1667"
+                  style="stroke:#2196F3;stroke-width:1.0416666666666667;" width="205.2083" x="284.8958" y="338.7083"/>
+            <rect fill="url(#gttwltbpt69s71)" height="10.4167" style="stroke:#2196F3;stroke-width:1.0416666666666667;"
+                  width="15.625" x="469.2708" y="343.9167"/>
+            <rect fill="url(#gttwltbpt69s71)" height="2.0833" style="stroke:#2196F3;stroke-width:1.0416666666666667;"
+                  width="4.1667" x="467.1875" y="346"/>
+            <rect fill="url(#gttwltbpt69s71)" height="2.0833" style="stroke:#2196F3;stroke-width:1.0416666666666667;"
+                  width="4.1667" x="467.1875" y="350.1667"/>
+            <text fill="#FFFFFF" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="142.7083"
+                  x="310.9375" y="382.5255">Command_2 Processor
+            </text>
+        </g><!--entity camunda-task-dispatcher-processor-->
+        <g id="elem_camunda-task-dispatcher-processor">
+            <rect fill="url(#gttwltbpt69s71)" filter="url(#fttwltbpt69s7)" height="67.275" rx="4.1667" ry="4.1667"
+                  style="stroke:#2196F3;stroke-width:1.0416666666666667;" width="283.3333" x="196.875" y="207.8958"/>
+            <rect fill="url(#gttwltbpt69s71)" height="10.4167" style="stroke:#2196F3;stroke-width:1.0416666666666667;"
+                  width="15.625" x="459.375" y="213.1042"/>
+            <rect fill="url(#gttwltbpt69s71)" height="2.0833" style="stroke:#2196F3;stroke-width:1.0416666666666667;"
+                  width="4.1667" x="457.2917" y="215.1875"/>
+            <rect fill="url(#gttwltbpt69s71)" height="2.0833" style="stroke:#2196F3;stroke-width:1.0416666666666667;"
+                  width="4.1667" x="457.2917" y="219.3542"/>
+            <text fill="#FFFFFF" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="220.8333"
+                  x="222.9167" y="251.713">camunda-task-dispatcher-processor
+            </text>
+        </g><!--entity camunda-task-dispatcher-receiver-jms-->
+        <g id="elem_camunda-task-dispatcher-receiver-jms">
+            <rect fill="url(#gttwltbpt69s71)" filter="url(#fttwltbpt69s7)" height="67.275" rx="4.1667" ry="4.1667"
+                  style="stroke:#2196F3;stroke-width:1.0416666666666667;" width="302.0833" x="187.5" y="77.0833"/>
+            <rect fill="url(#gttwltbpt69s71)" height="10.4167" style="stroke:#2196F3;stroke-width:1.0416666666666667;"
+                  width="15.625" x="468.75" y="82.2917"/>
+            <rect fill="url(#gttwltbpt69s71)" height="2.0833" style="stroke:#2196F3;stroke-width:1.0416666666666667;"
+                  width="4.1667" x="466.6667" y="84.375"/>
+            <rect fill="url(#gttwltbpt69s71)" height="2.0833" style="stroke:#2196F3;stroke-width:1.0416666666666667;"
+                  width="4.1667" x="466.6667" y="88.5417"/>
+            <text fill="#FFFFFF" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="239.5833"
+                  x="213.5417" y="120.9005">camunda-task-dispatcher-receiver-jms
+            </text>
+        </g><!--entity camunda-task-dispatcher-completer-jms-->
+        <g id="elem_camunda-task-dispatcher-completer-jms">
+            <rect fill="url(#gttwltbpt69s71)" filter="url(#fttwltbpt69s7)" height="67.275" rx="4.1667" ry="4.1667"
+                  style="stroke:#2196F3;stroke-width:1.0416666666666667;" width="314.5833" x="60.4167" y="515.3646"/>
+            <rect fill="url(#gttwltbpt69s71)" height="10.4167" style="stroke:#2196F3;stroke-width:1.0416666666666667;"
+                  width="15.625" x="354.1667" y="520.5729"/>
+            <rect fill="url(#gttwltbpt69s71)" height="2.0833" style="stroke:#2196F3;stroke-width:1.0416666666666667;"
+                  width="4.1667" x="352.0833" y="522.6563"/>
+            <rect fill="url(#gttwltbpt69s71)" height="2.0833" style="stroke:#2196F3;stroke-width:1.0416666666666667;"
+                  width="4.1667" x="352.0833" y="526.8229"/>
+            <text fill="#FFFFFF" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="252.0833"
+                  x="86.4583" y="559.1817">camunda-task-dispatcher-completer-jms
+            </text>
+        </g><!--entity JMS-->
+        <g id="elem_JMS">
+            <ellipse cx="592.7083" cy="744.3958" fill="#B7161C" filter="url(#fttwltbpt69s7)" rx="8.3333" ry="8.3333"
+                     style="stroke:#E51C23;stroke-width:1.0416666666666667;"/>
+            <text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="23.9583"
+                  x="580.7292" y="785.088">JMS
+            </text>
+        </g><!--entity Broker-->
+        <g id="elem_Broker">
+            <rect fill="url(#gttwltbpt69s71)" filter="url(#fttwltbpt69s7)" height="67.275" rx="4.1667" ry="4.1667"
+                  style="stroke:#2196F3;stroke-width:1.0416666666666667;" width="103.125" x="639.0625" y="710.7604"/>
+            <rect fill="url(#gttwltbpt69s71)" height="10.4167" style="stroke:#2196F3;stroke-width:1.0416666666666667;"
+                  width="15.625" x="721.3542" y="715.9688"/>
+            <rect fill="url(#gttwltbpt69s71)" height="2.0833" style="stroke:#2196F3;stroke-width:1.0416666666666667;"
+                  width="4.1667" x="719.2708" y="718.0521"/>
+            <rect fill="url(#gttwltbpt69s71)" height="2.0833" style="stroke:#2196F3;stroke-width:1.0416666666666667;"
+                  width="4.1667" x="719.2708" y="722.2188"/>
+            <text fill="#FFFFFF" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="40.625"
+                  x="665.1042" y="754.5776">Broker
+            </text>
+        </g><!--entity camunda-task-dispatcher-transport-jms-->
+        <g id="elem_camunda-task-dispatcher-transport-jms">
+            <rect fill="url(#gttwltbpt69s71)" filter="url(#fttwltbpt69s7)" height="67.275" rx="4.1667" ry="4.1667"
+                  style="stroke:#2196F3;stroke-width:1.0416666666666667;" width="310.4167" x="1080.2083" y="515.3646"/>
+            <rect fill="url(#gttwltbpt69s71)" height="10.4167" style="stroke:#2196F3;stroke-width:1.0416666666666667;"
+                  width="15.625" x="1369.7917" y="520.5729"/>
+            <rect fill="url(#gttwltbpt69s71)" height="2.0833" style="stroke:#2196F3;stroke-width:1.0416666666666667;"
+                  width="4.1667" x="1367.7083" y="522.6563"/>
+            <rect fill="url(#gttwltbpt69s71)" height="2.0833" style="stroke:#2196F3;stroke-width:1.0416666666666667;"
+                  width="4.1667" x="1367.7083" y="526.8229"/>
+            <text fill="#FFFFFF" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="247.9167"
+                  x="1106.25" y="559.1817">camunda-task-dispatcher-transport-jms
+            </text>
+        </g><!--entity camunda-task-dispatcher-runtime-->
+        <g id="elem_camunda-task-dispatcher-runtime">
+            <rect fill="url(#gttwltbpt69s71)" filter="url(#fttwltbpt69s7)" height="67.275" rx="4.1667" ry="4.1667"
+                  style="stroke:#2196F3;stroke-width:1.0416666666666667;" width="275" x="1115.625" y="710.7604"/>
+            <rect fill="url(#gttwltbpt69s71)" height="10.4167" style="stroke:#2196F3;stroke-width:1.0416666666666667;"
+                  width="15.625" x="1369.7917" y="715.9688"/>
+            <rect fill="url(#gttwltbpt69s71)" height="2.0833" style="stroke:#2196F3;stroke-width:1.0416666666666667;"
+                  width="4.1667" x="1367.7083" y="718.0521"/>
+            <rect fill="url(#gttwltbpt69s71)" height="2.0833" style="stroke:#2196F3;stroke-width:1.0416666666666667;"
+                  width="4.1667" x="1367.7083" y="722.2188"/>
+            <text fill="#FFFFFF" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="212.5"
+                  x="1141.6667" y="754.5776">camunda-task-dispatcher-runtime
+            </text>
+        </g><!--entity REST-->
+        <g id="elem_REST">
+            <ellipse cx="1253.125" cy="903.3438" fill="#B7161C" filter="url(#fttwltbpt69s7)" rx="8.3333" ry="8.3333"
+                     style="stroke:#E51C23;stroke-width:1.0416666666666667;"/>
+            <text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="32.2917"
+                  x="1236.9792" y="944.0359">REST
+            </text>
+        </g><!--entity Camunda BPM-->
+        <g id="elem_Camunda BPM">
+            <rect fill="url(#gttwltbpt69s71)" filter="url(#fttwltbpt69s7)" height="67.275" rx="4.1667" ry="4.1667"
+                  style="stroke:#2196F3;stroke-width:1.0416666666666667;" width="152.0833" x="1298.9583" y="869.7083"/>
+            <rect fill="url(#gttwltbpt69s71)" height="10.4167" style="stroke:#2196F3;stroke-width:1.0416666666666667;"
+                  width="15.625" x="1430.2083" y="874.9167"/>
+            <rect fill="url(#gttwltbpt69s71)" height="2.0833" style="stroke:#2196F3;stroke-width:1.0416666666666667;"
+                  width="4.1667" x="1428.125" y="877"/>
+            <rect fill="url(#gttwltbpt69s71)" height="2.0833" style="stroke:#2196F3;stroke-width:1.0416666666666667;"
+                  width="4.1667" x="1428.125" y="881.1667"/>
+            <text fill="#FFFFFF" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="89.5833"
+                  x="1325" y="913.5255">Camunda BPM
+            </text>
+        </g><!--link camunda-task-dispatcher-receiver-jms to camunda-task-dispatcher-processor-->
+        <g id="link_camunda-task-dispatcher-receiver-jms_camunda-task-dispatcher-processor">
+            <path d="M338.5417,144.5729 C338.5417,161.9792 338.5417,183.4688 338.5417,201.6875 " fill="none"
+                  id="camunda-task-dispatcher-receiver-jms-to-camunda-task-dispatcher-processor"
+                  style="stroke:#2196F3;stroke-width:3.125;"/>
+            <polygon fill="#2196F3"
+                     points="338.5417,206.6875,342.7083,197.3125,338.5417,201.4792,334.375,197.3125,338.5417,206.6875"
+                     style="stroke:#2196F3;stroke-width:3.125;"/>
+        </g><!--link camunda-task-dispatcher-processor to Command_1 Processor-->
+        <g id="link_camunda-task-dispatcher-processor_Command_1 Processor">
+            <path d="M289.4167,275.3958 C262.2292,293.5521 228.375,316.1771 200.3646,334.8854 " fill="none"
+                  id="camunda-task-dispatcher-processor-to-Command_1 Processor"
+                  style="stroke:#2196F3;stroke-width:3.125;"/>
+            <polygon fill="#2196F3"
+                     points="196.25,338.3229,206.3576,336.5655,200.5767,335.4236,201.7186,329.6427,196.25,338.3229"
+                     style="stroke:#2196F3;stroke-width:3.125;"/>
+        </g><!--link camunda-task-dispatcher-processor to Command_2 Processor-->
+        <g id="link_camunda-task-dispatcher-processor_Command_2 Processor">
+            <path d="M351.0208,275.3958 C357.6979,292.9479 365.9583,314.6563 372.9271,332.9792 " fill="none"
+                  id="camunda-task-dispatcher-processor-to-Command_2 Processor"
+                  style="stroke:#2196F3;stroke-width:3.125;"/>
+            <polygon fill="#2196F3"
+                     points="375.0417,337.5104,375.5862,327.2657,373.182,332.6454,367.8022,330.2412,375.0417,337.5104"
+                     style="stroke:#2196F3;stroke-width:3.125;"/>
+        </g><!--link Command_1 Processor to camunda-task-dispatcher-completer-jms-->
+        <g id="link_Command_1 Processor_camunda-task-dispatcher-completer-jms">
+            <path d="M159.3542,406.2292 C171.4063,435.5104 189.0729,478.4167 201.8125,509.3438 " fill="none"
+                  id="Command_1 Processor-to-camunda-task-dispatcher-completer-jms"
+                  style="stroke:#2196F3;stroke-width:3.125;"/>
+            <polygon fill="#2196F3"
+                     points="204.125,513.9375,204.4194,503.6825,202.1472,509.1193,196.7103,506.847,204.125,513.9375"
+                     style="stroke:#2196F3;stroke-width:3.125;"/>
+        </g><!--link Command_2 Processor to camunda-task-dispatcher-completer-jms-->
+        <g id="link_Command_2 Processor_camunda-task-dispatcher-completer-jms">
+            <path d="M355.5625,406.2292 C326.7188,435.875 284.3021,479.4896 254.1458,510.5 " fill="none"
+                  id="Command_2 Processor-to-camunda-task-dispatcher-completer-jms"
+                  style="stroke:#2196F3;stroke-width:3.125;"/>
+            <polygon fill="#2196F3"
+                     points="250.8333,513.9375,260.3557,510.1196,254.4637,510.2029,254.3804,504.311,250.8333,513.9375"
+                     style="stroke:#2196F3;stroke-width:3.125;"/>
+        </g><!--link JMS to Broker-->
+        <g id="link_JMS_Broker">
+            <path d="M602.2708,744.3958 C614.4688,744.3958 626.6563,744.3958 638.8542,744.3958 " fill="none"
+                  id="JMS-Broker" style="stroke:#2196F3;stroke-width:3.125;"/>
+        </g><!--link JMS to camunda-task-dispatcher-receiver-jms-->
+        <g id="link_JMS_camunda-task-dispatcher-receiver-jms">
+            <path d="M590.3333,734.5729 C583.2188,707.375 562.5,622.0521 562.5,550.0417 C562.5,240.4896 562.5,240.4896 562.5,240.4896 C562.5,195.9583 528.8125,166.6042 487.5625,147.3542 "
+                  fill="none" id="JMS-to-camunda-task-dispatcher-receiver-jms"
+                  style="stroke:#2196F3;stroke-width:3.125;"/>
+            <polygon fill="#2196F3"
+                     points="483,144.8229,489.8304,152.4778,487.7471,146.9658,493.2591,144.8824,483,144.8229"
+                     style="stroke:#2196F3;stroke-width:3.125;"/>
+            <text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="307.2917"
+                  x="573.9583" y="377.6296" font-weight="bold">camunda.dispatcher.jms.external-task.out-queue
+            </text>
+        </g><!--link camunda-task-dispatcher-completer-jms to JMS-->
+        <g id="link_camunda-task-dispatcher-completer-jms_JMS">
+            <path d="M206.6458,582.8333 C201.3542,605.0729 199.1042,633.875 214.5833,653.4688 C260.9896,712.2083 511,736.6563 576.8229,742.125 "
+                  fill="none" id="camunda-task-dispatcher-completer-jms-to-JMS"
+                  style="stroke:#2196F3;stroke-width:3.125;"/>
+            <polygon fill="#2196F3"
+                     points="581.8958,742.625,572.8981,737.6963,576.7054,742.1937,572.208,746.001,581.8958,742.625"
+                     style="stroke:#2196F3;stroke-width:3.125;"/>
+            <text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="297.9167"
+                  x="226.0417" y="639.9942" font-weight="bold">camunda.dispatcher.jms.external-task.in-queue
+            </text>
+        </g><!--link JMS to camunda-task-dispatcher-transport-jms-->
+        <g id="link_JMS_camunda-task-dispatcher-transport-jms">
+            <path d="M591.4896,734.5938 C588.7813,711.2604 585.0417,647.3229 619.7917,615.9688 C652.9688,586.0417 902.7708,567.1771 1073.7917,557.6354 "
+                  fill="none" id="JMS-to-camunda-task-dispatcher-transport-jms"
+                  style="stroke:#2196F3;stroke-width:3.125;"/>
+            <polygon fill="#2196F3"
+                     points="1078.8021,557.2917,1069.215,553.6393,1073.6014,557.574,1069.6667,561.9604,1078.8021,557.2917"
+                     style="stroke:#2196F3;stroke-width:3.125;"/>
+            <text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="297.9167"
+                  x="631.25" y="639.9942" font-weight="bold">camunda.dispatcher.jms.external-task.in-queue
+            </text>
+        </g><!--link camunda-task-dispatcher-transport-jms to JMS-->
+        <g id="link_camunda-task-dispatcher-transport-jms_JMS">
+            <path d="M1079.7708,574.1875 C1044.7188,583.8125 1008.8333,597.25 978.125,615.9688 C959.0833,627.5833 965.0104,644.0729 944.7917,653.4688 C912.1354,668.6458 649.8854,640.5313 620.8333,661.8021 C599.6667,677.3125 594.3021,709.7917 593.0208,728.75 "
+                  fill="none" id="camunda-task-dispatcher-transport-jms-to-JMS"
+                  style="stroke:#2196F3;stroke-width:3.125;"/>
+            <polygon fill="#2196F3"
+                     points="592.7292,733.5729,597.347,724.4117,592.9826,728.3708,589.0236,724.0063,592.7292,733.5729"
+                     style="stroke:#2196F3;stroke-width:3.125;"/>
+            <text fill="#222222" font-family="Verdana" font-size="12.5" lengthAdjust="spacing" textLength="307.2917"
+                  x="989.5833" y="639.9942" font-weight="bold">camunda.dispatcher.jms.external-task.out-queue
+            </text>
+        </g><!--link camunda-task-dispatcher-transport-jms to camunda-task-dispatcher-runtime-->
+        <g id="link_camunda-task-dispatcher-transport-jms_camunda-task-dispatcher-runtime">
+            <path d="M1294.6563,587.1354 C1303.5729,595.4688 1311.5,605.1146 1316.6667,615.9688 C1331.125,646.3229 1312.2708,680.3854 1291.4375,705.6458 "
+                  fill="none" id="camunda-task-dispatcher-transport-jms-camunda-task-dispatcher-runtime"
+                  style="stroke:#2196F3;stroke-width:3.125;"/>
+            <polygon fill="#2196F3"
+                     points="1291.2604,584.1875,1295.4593,593.5481,1295.1384,587.6643,1301.0222,587.3434,1291.2604,584.1875"
+                     style="stroke:#2196F3;stroke-width:3.125;"/>
+            <polygon fill="#2196F3"
+                     points="1287.5313,709.2188,1296.7782,704.7751,1290.9049,705.2507,1290.4293,699.3773,1287.5313,709.2188"
+                     style="stroke:#2196F3;stroke-width:3.125;"/>
+        </g><!--link REST to Camunda BPM-->
+        <g id="link_REST_Camunda BPM">
+            <path d="M1262.6458,903.3438 C1274.6458,903.3438 1286.6354,903.3438 1298.6354,903.3438 " fill="none"
+                  id="REST-Camunda BPM" style="stroke:#2196F3;stroke-width:3.125;"/>
+        </g><!--link camunda-task-dispatcher-runtime to REST-->
+        <g id="link_camunda-task-dispatcher-runtime_REST">
+            <path d="M1253.125,778.3229 C1253.125,811.9688 1253.125,862.7292 1253.125,887.5625 " fill="none"
+                  id="camunda-task-dispatcher-runtime-to-REST" style="stroke:#2196F3;stroke-width:3.125;"/>
+            <polygon fill="#2196F3"
+                     points="1253.125,892.5313,1257.2917,883.1563,1253.125,887.3229,1248.9583,883.1563,1253.125,892.5313"
+                     style="stroke:#2196F3;stroke-width:3.125;"/>
+        </g><!--SRC=[bPF1QiCm44Jl-efjxZAqnn1wI9fB8H3gt48fGbw86ajoLr8ebFvxRSLfO-CwyisMPfz6u_6TFw16qC8ZAS6OiGN2RFrPlnfHmawu8-H89oLn1byCOB-oMWjJlDt3bgn4voozNgy_zDQbqC4KWliQnGlbAk7b0ObNIIf2YUfKFxnhDogKLbSb-elocx4q9d3-c6GoGNDc3GOqUReJuo1pt7alZq7k90AJfGr5xC3p9WSE-oNP8rBCEgwCmRgPpw7LPN-IhDx9i2rUdCziyFmZO42MQ39wQBma7g1Coszx7-l-z3lHQ_v_7Zm9uofB_cP9AHYlDAP5riLElb8gTs9a2T-aTy1Yl1YNIAxwzRBETqt1LkSPM6utD_xe5X8lqqop7m00]-->
+    </g>
+</svg>

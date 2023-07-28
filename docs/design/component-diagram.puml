@@ -1,6 +1,7 @@
 @startuml
+!theme materia
 
-node "Camunda External Task JMS-based Service" {
+node "External Task Service" {
   [Command_1 Processor]
   [Command_2 Processor]
   [camunda-task-dispatcher-processor]
@@ -21,7 +22,7 @@ cloud {
 JMS --> [camunda-task-dispatcher-receiver-jms] : camunda.dispatcher.jms.external-task.out-queue
 [camunda-task-dispatcher-completer-jms] --> JMS : camunda.dispatcher.jms.external-task.in-queue
 
-node "Camunda Dispatcher Service" {
+node "Task Dispatcher Service" {
   [camunda-task-dispatcher-transport-jms]
   [camunda-task-dispatcher-runtime]
 }
