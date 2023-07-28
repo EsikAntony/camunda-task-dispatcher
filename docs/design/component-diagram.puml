@@ -1,0 +1,39 @@
+@startuml
+
+node "Camunda External Task JMS-based Service" {
+  [Command_1 Processor]
+  [Command_2 Processor]
+  [camunda-task-dispatcher-processor]
+  [camunda-task-dispatcher-receiver-jms]
+  [camunda-task-dispatcher-completer-jms]
+}
+
+[camunda-task-dispatcher-receiver-jms] --> [camunda-task-dispatcher-processor]
+[camunda-task-dispatcher-processor] --> [Command_1 Processor]
+[camunda-task-dispatcher-processor] --> [Command_2 Processor]
+[Command_1 Processor] --> [camunda-task-dispatcher-completer-jms]
+[Command_2 Processor] --> [camunda-task-dispatcher-completer-jms]
+
+cloud {
+  JMS - [Broker]
+}
+
+JMS --> [camunda-task-dispatcher-receiver-jms] : camunda.dispatcher.jms.external-task.out-queue
+[camunda-task-dispatcher-completer-jms] --> JMS : camunda.dispatcher.jms.external-task.in-queue
+
+node "Camunda Dispatcher Service" {
+  [camunda-task-dispatcher-transport-jms]
+  [camunda-task-dispatcher-runtime]
+}
+
+JMS --> [camunda-task-dispatcher-transport-jms] : camunda.dispatcher.jms.external-task.in-queue
+[camunda-task-dispatcher-transport-jms] --> JMS : camunda.dispatcher.jms.external-task.out-queue
+[camunda-task-dispatcher-transport-jms] <--> [camunda-task-dispatcher-runtime]
+
+cloud {
+  REST - [Camunda BPM]
+}
+
+[camunda-task-dispatcher-runtime] --> REST
+
+@enduml
