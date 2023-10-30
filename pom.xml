@@ -54,7 +54,7 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- libs -->
-        <version.activemq>5.18.1</version.activemq>
+        <version.activemq>5.18.3</version.activemq>
         <version.moxy>4.0.1</version.moxy>
         <version.jakarta.xml.bind>4.0.0</version.jakarta.xml.bind>
         <version.slf4j>1.7.36</version.slf4j>
